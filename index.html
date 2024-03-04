@@ -1,136 +1,96 @@
 <!DOCTYPE html>
 
-<html>
-<meta charset="UTF-8" lang="en">
+<html lang="en">
+<meta charset="UTF-8">
 <head>
     <title>Gavin's Homepage</title>
-  
-    <style>
-        :root {
-            --bg0: #161620;
-            --bg1: #262630;
-            --fg0: #d5d5d5;
-            --link: #afafdf;
-        }
-        body {
-            background-color: var(--bg0);
-            color: var(--fg0);
-        }
-        h1, h2, h3 {
-            text-align: center;
-        }
-        a.button {
-            transition: 0.25s;
-            border: 2px solid var(--link);
-            padding: 5px;
-            color: var(--link);
-            text-decoration: none;
-        }
-        a.button:hover {
-            background-color: var(--link);
-            color: var(--bg1);
-        }
-        a.text {
-            color: var(--link);
-        }
-        div.proj-category {
-            box-shadow: 0px 0px 15px 5px var(--bg1);
-            background-color: var(--bg1);
-            padding: 10px 0px 0px 0px;
-            margin: 40px 5px 40px 5px;
-        }
-        div.proj {
-            box-shadow: 0px 0px 15px 2px var(--bg0);
-            background-color: var(--bg0);
-            padding: 0px 20px 30px 20px;
-            margin: 20px;
-            display: inline-block;
-        }
-    </style>
-    
-    <script>
-    </script>
+    <link rel="stylesheet" href="pagestyle.css">
 </head>
 
 <body>
     <h1>Welcome!</h1>
-    <p>
-        Welcome to my page! Here, I have a highlight of some of the personal projects I've done. All projects can also be found through <a class="text" href="https://www.github.com/gavboi" target="_blank">my GitHub profile</a>.
-    </p>
+    <div class="container">
+        <p>
+            Hi, my name is Gavin and welcome to my page! I'm a software engineering student with a passion for coding. Here, I have a highlight of some of the personal projects I've done. All projects can also be found through <a class="text" href="https://www.github.com/gavboi" target="_blank">my GitHub profile</a>.
+        </p>
+    </div>
     
-        <div class="proj-category">
-        <h3>Small Tools</h3>
-        
-            <div class="proj">
-                <h4>Secret Santa Helper (WIP)</h4>
-                <p>
-                    This tool allows groups to create Secret Santa-style assignments, such that everyone is able to participate - even the person using the tool! Assignments are made automatically, can be set to avoid assignments between specific people or assignments from previous years, and can be sent out automatically by email.
-                </p>
-                <p>Made using: Python</p>
-                <a class="button" href="https://github.com/gavboi/secret-santa" target="_blank">View repository</a>
-            </div>
-                
-            <div class="proj">
-                <h4>Window Tweaks</h4>
-                <p>
-                    This tool allows pretty much any window to be set to always stay on top, or to become semi-transparent.
-                </p>
-                <p>Made using: AutoHotKey</p>
-                <a class="button" href="https://github.com/gavboi/window-tweaks" target="_blank">View repository</a>
-            </div>
-        </div>
+    <div class="glow-bg1 container">
+    <h3>Small Tools</h3>
     
-        <div class="proj-category">
-        <h3>Gaming-related Projects</h3>
-        
-            <div class="proj">
-                <h4>Bloons TD6 Farming Script (WIP)</h4>
-                <p>
-                    This script repeatedly plays the game and wins, so that you can level up your in-game characters (monkeys) and earn in-game money.
-                <p>
-                <p>Made using: AutoHotKey</p>
-                <a class="button" href="https://github.com/gavboi/btd6-farming" target="_blank">View repository</a>
-            </div>
+        <div class="glow-bg0 container">
+            <h4>Secret Santa Helper (WIP)</h4>
+            <p>
+                This tool allows groups to create Secret Santa-style assignments, such that everyone is able to participate - even the person using the tool! Assignments are made automatically, can be set to avoid assignments between specific people or assignments from previous years, and can be sent out automatically by email.
+            </p>
+            <p>Made using: Python</p>
+            <a class="button" href="https://github.com/gavboi/secret-santa" target="_blank">View repository</a>
         </div>
-        
-        <div class="proj-category">
-        <h3>Desmos-related Projects</h3>
-        
-            <div class="proj">
-                <h4>Desphone</h4>
-                <p>
-                    In the desmos web graphing calculator, I created a mock smartphone. The user is able to interact with it to play games, solve puzzles, draw, and use a calculator amongst other things. 
-                </p>
-                <p>Made using: Desmos Graphing Calculator</p>
-                <a class="button" href="https://www.desmos.com/calculator/4j4k0kyocl" target="_blank">View graph</a>
-            </div>
             
-            <div class="proj">
-            <h4>Desmos Plotter</h4>
+        <div class="glow-bg0 container">
+            <h4>Window Tweaks</h4>
             <p>
-                If you want to have the equation of a line with a very specific shape, this tool lets you place and drag lines to shape them as needed so that you can simply copy the resulting equation.
+                This tool allows pretty much any window to be set to always stay on top, or to become semi-transparent.
             </p>
-            <p>Made using: HTML, Desmos API</p>
-            <a class="button" href="https://github.com/gavboi/desmos-plotter" target="_blank">View repository</a>
-            </div>
+            <p>Made using: AutoHotKey</p>
+            <a class="button" href="https://github.com/gavboi/window-tweaks" target="_blank">View repository</a>
+        </div>
+    </div>
+
+    <div class="glow-bg1 container">
+    <h3>Gaming-related projects</h3>
+    
+        <div class="glow-bg0 container">
+            <h4>Bloons TD6 Farming Script (WIP)</h4>
+            <p>
+                This script repeatedly plays the game and wins, so that you can level up your in-game characters (monkeys) and earn in-game money.
+            </p>
+            <p>Made using: AutoHotKey</p>
+            <a class="button" href="https://github.com/gavboi/btd6-farming" target="_blank">View repository</a>
+        </div>
+    </div>
+    
+    <div class="glow-bg1 container">
+    <h3>Desmos-related projects</h3>
+    
+        <div class="glow-bg0 container">
+            <h4>Desphone</h4>
+            <p>
+                In the Desmos web graphing calculator, I created a mock smartphone. The user is able to interact with it to play games, solve puzzles, draw, and use a calculator amongst other things. 
+            </p>
+            <p>Made using: Desmos Graphing Calculator</p>
+            <a class="button" href="desphone.html" target="_self">See more</a>
+        </div>
         
-            <div class="proj">
-            <h4>Picture to Dots</h4>
-            <p>
-                This script takes an image and returns a bunch of dots, that can either be viewed in an HTML page or in Desmos.
-            </p>
-            <p>Made using: Python, HTML</p>
-            <a class="button" href="https://github.com/gavboi/pic-to-rgb" target="_blank">View repository</a>
-            </div>
+        <div class="glow-bg0 container">
+        <h4>Desmos Plotter</h4>
+        <p>
+            If you want to have the equation of a line with a very specific shape, this tool lets you place and drag lines to shape them as needed so that you can simply copy the resulting equation.
+        </p>
+        <p>Made using: HTML, Desmos API</p>
+        <a class="button" href="https://github.com/gavboi/desmos-plotter" target="_blank">View repository</a>
         </div>
     
-    <h2>About</h2>
-    <p>
-        This site was made by me and my trusty copy of Notepad++, and is still very much under construction&nbsp;&#128736;
-    </p>
-    <div style="text-align:center;padding-bottom:200px;"><a class="button" href="https://github.com/gavboi/gavboi.github.io" target="_blank" style="text-align:center;">View repo for this page</a></div>
+        <div class="glow-bg0 container">
+        <h4>Picture to Dots</h4>
+        <p>
+            This script takes an image and returns a bunch of dots, that can either be viewed in an HTML page or in Desmos.
+        </p>
+        <p>Made using: Python, HTML</p>
+        <a class="button" href="https://github.com/gavboi/pic-to-rgb" target="_blank">View repository</a>
+        </div>
+    </div>
+    
+    <div class="container">
+        <h2>About</h2>
+        <p>
+            This site was made by me and my trusty copy of Notepad++, and is still very much under construction&nbsp;&#128736; (Yes I am aware of fancier tools or libraries to use but I wanted to challenge myself to do everything with basics)
+        </p>
+        <div style="text-align:center;"><a class="button" href="https://github.com/gavboi/gavboi.github.io" target="_blank" style="text-align:center;">View repo for this page</a></div>
+    </div>
     
     <!-- I hate not being able to scroll past the bottom... -->
+    <div class="bottom"></div>
     
 </body>
 </html>
