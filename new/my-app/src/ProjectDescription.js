@@ -1,12 +1,23 @@
-function Project({ name, wip=false, details, madeWith, focusPage }) {
+import { Children } from 'react';
+
+export function ProjectList({ name, children }) {
   return (
-    <div className="item-box">
-      <h4>{name} {wip && "(WIP)"}</h4>
-      <p>{details}</p>
-      <p>Made using: {madeWith.join(", ")}</p>
-      <a className="button" href={focusPage} target="_blank">View More</a>
+    <div className="Project-list">
+      <p><b>{name}</b></p>
+      {Children.map(children, child => 
+        <div>{child}</div>
+      )}
     </div>
   );
 }
 
-export default Project;
+export function Project({ name, wip=false, details, madeWith, focusPage }) {
+  return (
+    <div className="Item-box">
+      <p><b>{name} {wip && "(WIP)"}</b></p>
+      <p>{details}</p>
+      <p>Made using: {madeWith.join(", ")}</p>
+      <a className="App-link" href={focusPage} target="_blank" rel="noreferrer">View More</a>
+    </div>
+  );
+}
