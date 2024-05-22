@@ -16,7 +16,7 @@ function App() {
 					
 					<p>These are my goals (completed goals are struck out):</p>
 					<ul>
-						<li><u>Languages</u>: AutoHotKey, C, Java, <s>JavaScript</s>, Python</li> 
+						<li><u>Languages</u>: AutoHotKey, <s>C</s>, Java, <s>JavaScript</s>, Python</li> 
 						<li><u>Include</u>: email communication, existing AI APIs, my own ML, databases, image recognition, arduino, device-to-device communication</li>
 						<li><u>Make</u>: discord bot, mobile app, mod for a game, an actual game/something playable</li>
 						<li><u>Purpose</u>: something for me to actually use, something for others to actually use, something silly</li>
@@ -25,21 +25,21 @@ function App() {
 				<Project
 					name="Portfolio Site"
 					wip={true}
-					details="(May 6 - May 10) I only created this site a few weeks ago in pure HTML/CSS, but I wanted to remake it with React to give it a more modern look and gain some experience with a more commonly used front-end library (if only my graphic design skills looked modern...)."
+					details="(May 6 - May 10) I only created this site a few weeks before this in pure HTML/CSS, but I wanted to remake it with React to give it a more modern look and gain some experience with a more commonly used front-end library (if only my graphic design skills looked modern...)."
           madeWith={["GitHub sites, React"]}
 					focusPage="https://github.com/gavboi/gavboi.github.io"
 				/>
 				<Project
-					name="May 13"
+					name="Sudoku Solver"
 					wip={false}
-					details="Sudoku Solver"
-          madeWith={[]}
-					focusPage=""
+					details="(May 13 - May 17) I casually enjoy sudoku puzzles, but have always thought it would be cool if I could make something to do them for me... so I did. Nothing too fancy, but gets the job done quick."
+          madeWith={["C"]}
+					focusPage="https://github.com/gavboi/sudoku-solver"
 				/>
 				<Project
-					name="May 20"
-					wip={false}
-					details="Voice Command Script"
+					name="Voice Command Script"
+					wip={true}
+					details="(May 21 - May 24) ..."
           madeWith={[]}
 					focusPage=""
 				/>
