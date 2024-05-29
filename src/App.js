@@ -38,22 +38,85 @@ function App() {
 				/>
 				<Project
 					name="Voice Command Script"
+					wip={false}
+					details="(May 21 - May 24) Essentially my own mini version of something like Google assistant. As a proof of concept, it can take notes and search queries on the web. You can also configure what name it will answer to!"
+          madeWith={["Python"]}
+					focusPage="https://github.com/gavboi/voice-commands"
+				/>
+				<Project
+					name="Wordle Solver"
 					wip={true}
-					details="(May 21 - May 24) ..."
+					details="(May 27 - May 31) ..."
           madeWith={[]}
 					focusPage=""
 				/>
 				<Project
-					name="May 27"
+					name="BTD6 Farming Script (Pre-existing)"
 					wip={false}
-					details="???"
+					details="(June 3 - June 7) ..."
           madeWith={[]}
 					focusPage=""
 				/>
 				<Project
-					name="June 3"
+					name="Cover Letter Assembler"
 					wip={false}
-					details="???"
+					details="(June 10 - June 14)? ..."
+          madeWith={[]}
+					focusPage=""
+				/>
+				<Project
+					name="(Messaging App)"
+					wip={false}
+					details="(June 17 - June 21)? ..."
+          madeWith={[]}
+					focusPage=""
+				/>
+				<Project
+					name="Secret Santa Helper (Pre-Existing)"
+					wip={false}
+					details="(June 24 - June 28)? ..."
+          madeWith={[]}
+					focusPage=""
+				/>
+				<Project
+					name="(ML Pathing Solver)"
+					wip={false}
+					details="(July 1 - July 5)? ..."
+          madeWith={[]}
+					focusPage=""
+				/>
+				<Project
+					name="(Minecraft Mod)"
+					wip={false}
+					details="(July 8 - July 19)? ..."
+          madeWith={[]}
+					focusPage=""
+				/>
+				<Project
+					name="(Compiler for nonsensical language)"
+					wip={false}
+					details="(July 22 - July 26)? ..."
+          madeWith={[]}
+					focusPage=""
+				/>
+				<Project
+					name="RPS on Camera"
+					wip={false}
+					details="(July 29 - August 2)? ..."
+          madeWith={[]}
+					focusPage=""
+				/>
+				<Project
+					name="(Discord Bot)"
+					wip={false}
+					details="(August 5 - August 9)? ..."
+          madeWith={[]}
+					focusPage=""
+				/>
+				<Project
+					name="(Password pad?)"
+					wip={false}
+					details="(August 12 - August 16)? ..."
           madeWith={[]}
 					focusPage=""
 				/>
