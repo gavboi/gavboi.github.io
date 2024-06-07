@@ -16,9 +16,9 @@ function App() {
 					
 					<p>These are my goals (completed goals are struck out):</p>
 					<ul>
-						<li><u>Languages</u>: AutoHotKey, <s>C</s>, Java, <s>JavaScript</s>, Python</li> 
+						<li><u>Languages</u>: AutoHotKey, <s>C</s>, Java, <s>JavaScript</s>, <s>Python</s></li> 
 						<li><u>Include</u>: email communication, existing AI APIs, my own ML, databases, image recognition, arduino, device-to-device communication</li>
-						<li><u>Make</u>: discord bot, mobile app, mod for a game, an actual game/something playable</li>
+						<li><u>Make</u>: discord bot, mobile app, mod for a game, <s>something playable</s></li>
 						<li><u>Purpose</u>: something for me to actually use, something for others to actually use, something silly</li>
 					</ul>
 				</div>
@@ -44,11 +44,11 @@ function App() {
 					focusPage="https://github.com/gavboi/voice-commands"
 				/>
 				<Project
-					name="Wordle Solver"
-					wip={true}
-					details="(May 27 - May 31) ..."
-          madeWith={[]}
-					focusPage=""
+					name="Wordle + Mastermind Solver/Player"
+					wip={false}
+					details="(May 27 - May 31) Provides guesses for Wordle or Mastermind, or allows you to play against the script as it comes up with words. Wordle does not have the most optimal strategy for solves, but is still very effective, especially considering how simple it is."
+          madeWith={["Python"]}
+					focusPage="https://github.com/gavboi/wordle-solver"
 				/>
 				<Project
 					name="BTD6 Farming Script (Pre-existing)"
