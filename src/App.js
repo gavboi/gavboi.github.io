@@ -55,7 +55,7 @@ function App() {
 					wip={false}
 					details="Repeatedly plays the game Bloons TD 6 automatically to collect in-game money and experience. This script ended up being used by a handful of people online who raised issues, so I went back and fixed the issues as well as remade the menu system to make it more user-friendly."
           madeWith={["AutoHotKey"]}
-					focusPage=""https://github.com/gavboi/btd6-farming""
+					focusPage="https://github.com/gavboi/btd6-farming"
 				/>
 				<Project
 					name="Cover Letter Assembler"
