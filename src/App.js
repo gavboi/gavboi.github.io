@@ -16,7 +16,7 @@ function App() {
 					
 					<p>These are my goals (completed goals are struck out):</p>
 					<ul>
-						<li><u>Languages</u>: AutoHotKey, <s>C</s>, Java, <s>JavaScript</s>, <s>Python</s></li> 
+						<li><u>Languages</u>: <s>AutoHotKey</s>, <s>C</s>, Java, <s>JavaScript</s>, <s>Python</s></li> 
 						<li><u>Include</u>: email communication, existing AI APIs, my own ML, databases, image recognition, arduino, device-to-device communication</li>
 						<li><u>Make</u>: discord bot, mobile app, mod for a game, <s>something playable</s></li>
 						<li><u>Purpose</u>: something for me to actually use, something for others to actually use, something silly</li>
@@ -25,98 +25,98 @@ function App() {
 				<Project
 					name="Portfolio Site"
 					wip={true}
-					details="(May 6 - May 10) I only created this site a few weeks before this in pure HTML/CSS, but I wanted to remake it with React to give it a more modern look and gain some experience with a more commonly used front-end library (if only my graphic design skills looked modern...)."
+					details="I only created this site a few weeks before this in pure HTML/CSS, but I wanted to remake it with React to give it a more modern look and gain some experience with a more commonly used front-end library (if only my graphic design skills looked modern...)."
           madeWith={["GitHub sites, React"]}
 					focusPage="https://github.com/gavboi/gavboi.github.io"
 				/>
 				<Project
 					name="Sudoku Solver"
 					wip={false}
-					details="(May 13 - May 17) I casually enjoy sudoku puzzles, but have always thought it would be cool if I could make something to do them for me... so I did. Nothing too fancy, but gets the job done quick."
+					details="I casually enjoy sudoku puzzles, but have always thought it would be cool if I could make something to do them for me... so I did. Nothing too fancy, but gets the job done quick."
           madeWith={["C"]}
 					focusPage="https://github.com/gavboi/sudoku-solver"
 				/>
 				<Project
 					name="Voice Command Script"
 					wip={false}
-					details="(May 21 - May 24) Essentially my own mini version of something like Google assistant. As a proof of concept, it can take notes and search queries on the web. You can also configure what name it will answer to!"
+					details="Essentially my own mini version of something like Google assistant. As a proof of concept, it can take notes and search queries on the web. You can also configure what name it will answer to!"
           madeWith={["Python"]}
 					focusPage="https://github.com/gavboi/voice-commands"
 				/>
 				<Project
 					name="Wordle + Mastermind Solver/Player"
 					wip={false}
-					details="(May 27 - May 31) Provides guesses for Wordle or Mastermind, or allows you to play against the script as it comes up with words. Wordle does not have the most optimal strategy for solves, but is still very effective, especially considering how simple it is."
+					details="Provides guesses for Wordle or Mastermind, or allows you to play against the script as it comes up with words. Wordle does not have the most optimal strategy for solves, but is still very effective, especially considering how simple it is."
           madeWith={["Python"]}
 					focusPage="https://github.com/gavboi/wordle-solver"
 				/>
 				<Project
 					name="BTD6 Farming Script (Pre-existing)"
 					wip={false}
-					details="(June 3 - June 7) ..."
-          madeWith={[]}
-					focusPage=""
+					details="Repeatedly plays the game Bloons TD 6 automatically to collect in-game money and experience. This script ended up being used by a handful of people online who raised issues, so I went back and fixed the issues as well as remade the menu system to make it more user-friendly."
+          madeWith={["AutoHotKey"]}
+					focusPage=""https://github.com/gavboi/btd6-farming""
 				/>
 				<Project
 					name="Cover Letter Assembler"
-					wip={false}
-					details="(June 10 - June 14)? ..."
+					wip={true}
+					details="Does NOT use AI. Uses segments written by you and assembles it into a cover letter. Keeps the human touch without the hours of rewriting/copy-pasting parts of cover letters manually."
           madeWith={[]}
 					focusPage=""
 				/>
 				<Project
-					name="(Messaging App)"
+					name="PvP NY Times Connections"
 					wip={false}
-					details="(June 17 - June 21)? ..."
+					details="Plan: LAN only, something to the style of Jackbox"
           madeWith={[]}
 					focusPage=""
 				/>
 				<Project
 					name="Secret Santa Helper (Pre-Existing)"
 					wip={false}
-					details="(June 24 - June 28)? ..."
+					details="Automatic secret santa assignments, so nobody needs to sit out."
           madeWith={[]}
 					focusPage=""
 				/>
 				<Project
-					name="(ML Pathing Solver)"
+					name="ML Freeze Tag"
 					wip={false}
-					details="(July 1 - July 5)? ..."
+					details="Plan: I like videos of animated little guys going around chasing each other so I wanna take that and make a version I haven't seen before"
           madeWith={[]}
 					focusPage=""
 				/>
 				<Project
 					name="(Minecraft Mod)"
 					wip={false}
-					details="(July 8 - July 19)? ..."
+					details="Plan: amalgam of small tweaks for QOL, however much I can figure out how to make in a reasonable amount of time"
           madeWith={[]}
 					focusPage=""
 				/>
 				<Project
 					name="(Compiler for nonsensical language)"
 					wip={false}
-					details="(July 22 - July 26)? ..."
+					details="Plan: every function is called the same way, except the one that cycles which function is active"
           madeWith={[]}
 					focusPage=""
 				/>
 				<Project
 					name="RPS on Camera"
 					wip={false}
-					details="(July 29 - August 2)? ..."
+					details="Plan: self-explanatory"
           madeWith={[]}
 					focusPage=""
 				/>
 				<Project
 					name="(Discord Bot)"
 					wip={false}
-					details="(August 5 - August 9)? ..."
+					details="Plan: some kind of reminder system"
           madeWith={[]}
 					focusPage=""
 				/>
 				<Project
 					name="(Password pad?)"
 					wip={false}
-					details="(August 12 - August 16)? ..."
+					details="Plan: hardware"
           madeWith={[]}
 					focusPage=""
 				/>
@@ -142,7 +142,7 @@ function App() {
       <ProjectList name="Gaming-related Projects">
         <Project
           name="Bloons TD6 Farming Script"
-          wip={true}
+          wip={false}
           details="This script repeatedly plays the game and wins, so that you can level up your in-game characters (monkeys) and earn in-game money as well as experience."
           madeWith={["AutoHotKey"]}
           focusPage="https://github.com/gavboi/btd6-farming"
