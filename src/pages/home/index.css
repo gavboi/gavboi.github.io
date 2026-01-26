@@ -1,0 +1,17 @@
+.bg {
+  background-color: var(--color-primary-container);
+  height: 100vh;
+}
+
+.content {
+  display: flex;
+}
+
+.item-container {
+  padding: 3rem;
+  gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  max-height: calc(100vh - 4rem - 6rem);
+}
