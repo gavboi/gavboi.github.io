@@ -7,6 +7,7 @@ import ContentReadMe from './components/note-app/ContentReadMe.js';
 import { useState } from 'react';
 import './index.css';
 import { navigateTo } from '../../helpers/index.ts';
+import { faDice } from '@fortawesome/free-solid-svg-icons';
 
 export default function HomePage() {
   const { theme } = useTheme();
@@ -19,9 +20,9 @@ export default function HomePage() {
       content: [
         {
           title: "Lucky Dice",
-          image: "",
           detail: 'A clicker/upgrade game inspired by "Unfair Flips"',
-          handleClick: () => { }
+          image: faDice,
+          handleClick: () => {navigateTo("lucky-dice")}
         }
       ],
       onClose: () => setFileAppProps(null)
