@@ -1,0 +1,63 @@
+.box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 5vw;
+  height: 5vw;
+  border-width: 1rem;
+  border-radius: 1rem;
+  border-color: #000;
+  background-color: #ccc;
+}
+
+.number {
+  font-weight: bold;
+  font-size: 3rem;
+  color: #000;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.slowRoll {
+  animation-name: roll;
+  animation-duration: 0.4s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes roll {
+  0% { transform: rotate(0deg) }
+  100% { transform: rotate(360deg) }
+}
+
+.shakeHorizontal {
+  animation-name: shake-h;
+  animation-duration: 0.23s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes shake-h {
+  0% { transform: translateX(0) }
+  25% { transform: translateX(15px) }
+  50% { transform: translateX(0px) }
+  75% { transform: translateX(-15px) }
+  100% { transform: translateX(0px) }
+}
+
+.shakeVertical {
+  animation-name: shake-v;
+  animation-duration: 0.18s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes shake-v {
+  0% { transform: translateY(0) }
+  25% { transform: translateY(15px) }
+  50% { transform: translateY(0px) }
+  75% { transform: translateY(-15px) }
+  100% { transform: translateY(0px) }
+}

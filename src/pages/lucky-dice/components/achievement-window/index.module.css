@@ -1,0 +1,30 @@
+.root {
+  background-color: #112266;
+  display: flex;
+  height: 100%;
+  padding: 2rem 20% 0 20%;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2rem;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.titleText {
+  color: white;
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  margin: 0;
+}
+
+.achievementContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  overflow-y: auto;
+  padding-bottom: 2rem;
+}

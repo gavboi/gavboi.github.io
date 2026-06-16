@@ -2,7 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faX } from '@fortawesome/free-solid-svg-icons';
 import './index.css';
-import ContentFile, { FileProps } from './ContentFile.tsx';
+import ContentFile, { FileProps } from './ContentFile';
 
 export interface FileAppProps {
   title: string;
