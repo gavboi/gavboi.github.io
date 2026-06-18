@@ -1,0 +1,31 @@
+.root {
+  display: grid;
+  grid-template-rows: 1fr 2rem;
+  width: 100%;
+  align-items: flex-end;
+}
+
+.bar {
+  background-color: #3f8efc;
+  grid-row: 1;
+  border: 2px solid #fff;
+  margin: -2px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.barLabel {
+  text-align: center;
+  font-size: 1rem;
+  font-weight: normal;
+  color: #fff;
+}
+
+.label {
+  text-align: center;
+  align-self: center;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+}

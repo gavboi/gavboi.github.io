@@ -9,9 +9,6 @@ A Portfolio of sorts for my projects.
 
 ## TEMP
 
-###
-- stats page
-
 ### 
 - theming
 - settings (pips, theme, stats)

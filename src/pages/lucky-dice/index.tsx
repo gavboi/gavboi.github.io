@@ -1,5 +1,5 @@
 import ShopItem from './components/shop-item';
-import { faGear, faTrophy, faCircleInfo } from '@fortawesome/free-solid-svg-icons';
+import { faGear, faTrophy, faCircleInfo, faChartBar } from '@fortawesome/free-solid-svg-icons';
 import classes from './index.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useRef, useState } from 'react';
@@ -9,8 +9,9 @@ import { UpgradeName, Achievement, Upgrade, AchievementName, Notice } from './ty
 import { ACHIEVEMENTS, DEFAULT_ROLL_TIME_MS, MAX_NOTICES, ROLL_TIME_REDUCTION_PER_UPGRADE_MS, UPGRADES } from './constants';
 import { randomInt } from '../../helpers/index';
 import AchievementWindow from './components/achievement-window';
+import StatsWindow from './components/stats-window';
 
-type AltScreen = 'achievements' | 'settings' | 'info';
+type AltScreen = 'achievements' | 'settings' | 'stats' | 'info';
 
 export default function LuckyDicePage() {
   // Game State Management
@@ -71,7 +72,7 @@ export default function LuckyDicePage() {
     'higher-payout': 0,
     'streak-multiplier': 0,
     'your-lucky-number': 0,
-    'stats': 0,
+    'stats': 1,
     'hard-mode': 0,
     'winner': 0
   });
@@ -89,7 +90,11 @@ export default function LuckyDicePage() {
     if (totalRolls >= 500) {
       setAchievementUnlocked('500-roll');
     }
-    if (lastThree.length === 3 && lastThree.every((v) => v === lastThree[0])) {
+    if (
+      lastThree.length === 3 && 
+      lastThree[0] - 1 === lastThree[1] && 
+      lastThree[1] - 1 === lastThree[2]
+    ) {
       setAchievementUnlocked('3-sequence');
     }
     if (rollCounts.slice(0, isHardMode ? 20 : 6).every((v) => v > 0)) {
@@ -165,8 +170,9 @@ export default function LuckyDicePage() {
       return next;
     });
     setLastThree((prev) => [value, ...prev].slice(0, 3));
-
-    if (value === luckyNumber) {
+    
+    const isLuckyRoll = value === luckyNumber;
+    if (isLuckyRoll) {
       // Lucky roll stats
       setLuckyRollCount((prev) => prev + 1);
       setCurrentStreak((prev) => {
@@ -184,7 +190,7 @@ export default function LuckyDicePage() {
         return next;
       });
     }
-    addNotice(`You rolled a ${value}`);
+    addNotice(`You rolled a ${value}${isLuckyRoll ? '!' : ''}`);
   }
 
   /**
@@ -207,6 +213,13 @@ export default function LuckyDicePage() {
    */
   const handleTrophyClick = () => {
     setAltScreen(altScreen === 'achievements' ? null : 'achievements')
+  }
+
+  /**
+   * Toggles the stats screen.
+   */
+  const handleStatsClick = () => {
+    setAltScreen(altScreen === 'stats' ? null : 'stats')
   }
 
   /**
@@ -267,6 +280,17 @@ export default function LuckyDicePage() {
         <div className={classes.altWindow}>
           <AchievementWindow achievements={achievementsUnlocked} unlockAchievement={setAchievementUnlocked} />
         </div>
+      ): altScreen === 'stats' ? (
+        <div className={classes.altWindow}>
+          <StatsWindow 
+            rollCounts={rollCounts}
+            luckyRollCount={luckyRollCount}
+            currentStreak={currentStreak}
+            maxStreak={maxStreak}
+            minStreak={minStreak}
+            isHardMode={isHardMode}
+          />
+        </div>
       ) : altScreen === 'settings' ? (
         <div className={classes.altWindow}>
 
@@ -283,6 +307,13 @@ export default function LuckyDicePage() {
             `${classes.menuIcon} ${altScreen === 'achievements' ? classes.menuIconSelected : ''}`
           } />
         </div>
+        {upgradeCount['stats'] > 0 && (
+          <div onClick={handleStatsClick} className={classes.clickable}>
+            <FontAwesomeIcon icon={faChartBar} className={
+              `${classes.menuIcon} ${altScreen === 'stats' ? classes.menuIconSelected : ''}`
+            } />
+          </div>
+        )}
         <div onClick={handleGearClick} className={classes.clickable}>
           <FontAwesomeIcon icon={faGear} className={
             `${classes.menuIcon} ${altScreen === 'settings' ? classes.menuIconSelected : ''}`
