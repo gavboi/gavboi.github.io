@@ -44,3 +44,9 @@ export type Achievement = {
   name: string;
   description: string;
 }
+
+export type Notice = {
+  id: string;
+  text: string;
+  animate: boolean;
+}

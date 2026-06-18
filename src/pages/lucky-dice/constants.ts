@@ -11,14 +11,14 @@ export const UPGRADES: Record<UpgradeName, Upgrade> = {
   'more-dice': {
     name: 'More Dice',
     description: 'Get one more die',
-    costs: [10, 20, 40, 80],
+    costs: [5, 10, 20, 40],
     countDisplayConversion: (count) => `${count + 1} ${count === 0 ? 'die' : 'dice'}`,
     unlockAchievement: '10-rolls',
   },
   'faster-rolling': {
     name: 'Faster Rolling',
     description: `Roll dice ${ROLL_TIME_REDUCTION_PER_UPGRADE_MS / 1000}s faster`,
-    costs: [5, 10, 20, 40, 80],
+    costs: [3, 10, 20, 40, 80],
     countDisplayConversion: (count) => `${(DEFAULT_ROLL_TIME_MS - count * ROLL_TIME_REDUCTION_PER_UPGRADE_MS) / 1000}s / roll`,
     unlockAchievement: 'roll-on-roll',
   },

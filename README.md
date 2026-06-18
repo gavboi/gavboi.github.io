@@ -10,7 +10,7 @@ A Portfolio of sorts for my projects.
 ## TEMP
 
 ###
-- play window styling and props (remember hard mode!)
+- stats page
 
 ### 
 - theming
@@ -22,3 +22,7 @@ A Portfolio of sorts for my projects.
 
 ###
 - unique achievements
+- extra achievements
+
+###
+- upgrade balancing

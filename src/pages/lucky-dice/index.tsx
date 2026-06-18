@@ -2,11 +2,11 @@ import ShopItem from './components/shop-item';
 import { faGear, faTrophy, faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 import classes from './index.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import PlayWindow from './components/play-window';
 import InfoWindow from './components/info-window';
-import { UpgradeName, Achievement, Upgrade, AchievementName } from './types';
-import { ACHIEVEMENTS, MAX_NOTICES, UPGRADES } from './constants';
+import { UpgradeName, Achievement, Upgrade, AchievementName, Notice } from './types';
+import { ACHIEVEMENTS, DEFAULT_ROLL_TIME_MS, MAX_NOTICES, ROLL_TIME_REDUCTION_PER_UPGRADE_MS, UPGRADES } from './constants';
 import { randomInt } from '../../helpers/index';
 import AchievementWindow from './components/achievement-window';
 
@@ -15,10 +15,22 @@ type AltScreen = 'achievements' | 'settings' | 'info';
 export default function LuckyDicePage() {
   // Game State Management
   const [altScreen, setAltScreen] = useState<AltScreen | null>(null);
-  const [notices, setNotices] = useState<string[]>(['Welcome!']);
+  const noticeId = useRef(0);
+  const [notices, setNotices] = useState<Notice[]>([
+    { id: `${noticeId.current++}`, text: 'Welcome!', animate: false }
+  ]);
+  const previousAltScreen = useRef<AltScreen | null>(null);
   const [luckyNumber, setLuckyNumber] = useState<number>(1);
   const [points, setPoints] = useState<number>(0);
   const [isHardMode, setIsHardMode] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (previousAltScreen.current === null && altScreen !== null) {
+      setNotices((prev) => prev.map((item) => ({ ...item, animate: false })));
+    }
+
+    previousAltScreen.current = altScreen;
+  }, [altScreen]);
 
   // Stats State
   const [rollCounts, setRollCounts] = useState<number[]>(Array<number>(20).fill(0));
@@ -64,16 +76,52 @@ export default function LuckyDicePage() {
     'winner': 0
   });
 
+  // Check for achievement unlocks on relevant state changes
+  useEffect(() => {
+    const totalRolls = rollCounts.reduce((a, b) => a + b, 0);
+
+    if (totalRolls >= 10) {
+      setAchievementUnlocked('10-rolls');
+    }
+    if (totalRolls >= 100) {
+      setAchievementUnlocked('100-rolls');
+    }
+    if (totalRolls >= 500) {
+      setAchievementUnlocked('500-roll');
+    }
+    if (lastThree.length === 3 && lastThree.every((v) => v === lastThree[0])) {
+      setAchievementUnlocked('3-sequence');
+    }
+    if (rollCounts.slice(0, isHardMode ? 20 : 6).every((v) => v > 0)) {
+      setAchievementUnlocked('each-once');
+    }
+  }, [isHardMode, lastThree, rollCounts]);
+
+  useEffect(() => {
+    if (luckyRollCount >= 15) {
+      setAchievementUnlocked('15-lucky');
+    }
+    if (currentStreak >= 2) {
+      setAchievementUnlocked('2-lucky-consecutive');
+    }
+    if (currentStreak <= -10) {
+      setAchievementUnlocked('10-fail-consecutive');
+    }
+    if (points >= 100) {
+      setAchievementUnlocked('rich');
+    }
+  }, [currentStreak, luckyRollCount, points]);
+
   /**
    * Unlocks the specified achievement and adds a notice about it. 
    * Does nothing if achievement is already unlocked.
    */
   const setAchievementUnlocked = (achievement: AchievementName) => {
     if (!achievementsUnlocked[achievement]) {
-      setAchievementsUnlocked({
-        ...achievementsUnlocked,
+      setAchievementsUnlocked((prev) => ({
+        ...prev,
         [achievement]: true,
-      });
+      }));
       addNotice(`Achievement Unlocked: ${ACHIEVEMENTS[achievement].name}`);
     }
   }
@@ -94,7 +142,10 @@ export default function LuckyDicePage() {
   }
 
   const addNotice = (notice: string) => {
-    setNotices([notice, ...notices].slice(0, MAX_NOTICES));
+    setNotices((prev) => [
+      { id: `${Date.now()}-${noticeId.current++}`, text: notice, animate: true },
+      ...prev,
+    ].slice(0, MAX_NOTICES));
   }
 
   /**
@@ -108,56 +159,30 @@ export default function LuckyDicePage() {
    */
   const handleRollResult = (value: number) => {
     // Roll stats
-    const newRollCounts = [...rollCounts];
-    newRollCounts[value - 1]++;
-    const totalRolls = newRollCounts.reduce((a, b) => a + b, 0);
-    setRollCounts(newRollCounts);
-    const newLastThree = [value, ...lastThree].slice(0, 3);
-    setLastThree(newLastThree);
-    // Roll achievements
-    if (totalRolls >= 10) {
-      setAchievementUnlocked('10-rolls');
-    }
-    if (totalRolls >= 100) {
-      setAchievementUnlocked('100-rolls');
-    }
-    if (totalRolls >= 500) {
-      setAchievementUnlocked('500-roll');
-    }
-    if (newLastThree.length === 3 && newLastThree.every((v) => v === newLastThree[0])) {
-      setAchievementUnlocked('3-sequence');
-    }
-    if (newRollCounts.slice(0, isHardMode ? 20 : 6).every((v) => v > 0)) {
-      setAchievementUnlocked('each-once');
-    }
+    setRollCounts((prev) => {
+      const next = [...prev];
+      next[value - 1]++;
+      return next;
+    });
+    setLastThree((prev) => [value, ...prev].slice(0, 3));
 
     if (value === luckyNumber) {
       // Lucky roll stats
-      const newLuckyRollCount = luckyRollCount + 1;
-      setLuckyRollCount(newLuckyRollCount);
-      const newCurrentStreak = Math.max(currentStreak, 0) + 1;
-      setCurrentStreak(newCurrentStreak);
-      const pointsGained = (1 + upgradeCount['higher-payout']) * ((upgradeCount['streak-multiplier'] + 1) ** (newCurrentStreak - 1));
-      const newPoints = points + pointsGained;
-      setPoints(newPoints);
-      // Lucky roll achievements
-      if (newLuckyRollCount >= 15) {
-        setAchievementUnlocked('15-lucky');
-      }
-      if (currentStreak >= 2) {
-        setAchievementUnlocked('2-lucky-consecutive');
-      }
-      if (newPoints >= 100) {
-        setAchievementUnlocked('rich');
-      }
+      setLuckyRollCount((prev) => prev + 1);
+      setCurrentStreak((prev) => {
+        const next = Math.max(prev, 0) + 1;
+        const pointsGained = (1 + upgradeCount['higher-payout']) * ((upgradeCount['streak-multiplier'] + 1) ** (next - 1));
+        setPoints((prevPoints) => prevPoints + pointsGained);
+        setMaxStreak((prevMax) => Math.max(prevMax, next));
+        return next;
+      });
     } else {
       // Unlucky roll stats
-      const newCurrentStreak = Math.min(currentStreak, 0) - 1;
-      setCurrentStreak(newCurrentStreak);
-      // Unlucky roll achievements
-      if (currentStreak <= -10) {
-        setAchievementUnlocked('10-fail-consecutive');
-      }
+      setCurrentStreak((prev) => {
+        const next = Math.min(prev, 0) - 1;
+        setMinStreak((prevMin) => Math.min(prevMin, next));
+        return next;
+      });
     }
     addNotice(`You rolled a ${value}`);
   }
@@ -203,7 +228,15 @@ export default function LuckyDicePage() {
 
       {altScreen === null ? (<>
         <div className={classes.playWindow}>
-          <PlayWindow notices={notices} handleRollResult={handleRollResult}/>
+          <PlayWindow
+            notices={notices}
+            setNotices={setNotices}
+            numberOfDice={1 + upgradeCount['more-dice']}
+            rollTimeMs={DEFAULT_ROLL_TIME_MS - (upgradeCount['faster-rolling'] * ROLL_TIME_REDUCTION_PER_UPGRADE_MS)}
+            numberOfFaces={(isHardMode ? 20 : 6) - upgradeCount['less-numbers']}
+            handleRollResult={handleRollResult}
+            unlockAchievement={setAchievementUnlocked}
+          />
         </div>
 
         <div className={classes.buyWindow}>
