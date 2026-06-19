@@ -1,5 +1,5 @@
 .root {
-  background-color: #112266;
+  background-color: var(--primaryContainer);
   display: flex;
   height: 100%;
   padding: 2rem 20% 0 20%;
@@ -12,7 +12,7 @@
 }
 
 .titleText {
-  color: white;
+  color: var(--onPrimaryContainer);
   font-size: 2rem;
   font-weight: bold;
   text-align: center;

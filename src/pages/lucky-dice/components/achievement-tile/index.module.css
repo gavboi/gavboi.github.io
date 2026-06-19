@@ -4,7 +4,7 @@
 }
 
 .tile {
-  border: 1rem solid yellow;
+  border: 1rem solid var(--secondary);
   border-radius: 1rem;
   width: 10rem;
   height: 10rem;
@@ -25,7 +25,7 @@
 }
 
 .titleText {
-  color: #fff;
+  color: var(--onPrimaryContainer);
   font-size: 1.5rem;
   font-weight: normal;
   text-align: center;
@@ -33,7 +33,8 @@
 }
 
 .descriptionText {
-  color: #aaa;
+  color: var(--onPrimaryContainer);
+  opacity: 0.5;
   font-size: 1rem;
   font-weight: normal;
   text-align: center;

@@ -1,8 +1,11 @@
 import classes from './index.module.css';
+import { useLuckyDiceTheme } from '../../theme';
 
 export default function InfoWindow() {
+  const { themeStyle } = useLuckyDiceTheme();
+
   return (
-    <div className={classes.root}>
+    <div className={classes.root} style={themeStyle}>
       <p className={classes.text}>
         This is a game about rolling dice. Get points by rolling your lucky number, 
         then buy upgrades to make it come up more often, so you can buy more upgrades...

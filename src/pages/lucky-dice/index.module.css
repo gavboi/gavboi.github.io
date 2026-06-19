@@ -7,6 +7,7 @@
   user-select: none;
   -webkit-user-select: none;
   overflow: hidden;
+  background-color: var(--background);
 }
 
 .playWindow {
@@ -17,9 +18,9 @@
 .buyWindow {
   grid-column: 2;
   grid-row: 1;
-  background-color: #add7f6;
+  background-color: var(--surface);
   margin-left: -1px;
-  border-left: 2px solid #3f8efc;
+  border-left: 2px solid var(--secondary);
 }
 
 .upgradeList {
@@ -30,7 +31,7 @@
 .menuBar {
   grid-column: 1 / -1;
   grid-row: 2;
-  background-color: #3b28cc;
+  background-color: var(--primary);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -44,22 +45,23 @@
 
 .infoText {
   color: #fff;
-  background-color: #3f8efc;
+  background-color: var(--secondary);
+  color: var(--onSecondary);
   border-radius: 2rem;
   padding: 0.5rem 1rem;
 }
 
 .menuIcon {
-  color: #fff;
+  color: var(--onPrimary);
   padding: 0.5rem;
   border-radius: 3rem;
   font-size: 3rem;
 }
 
 .menuIconSelected {
-  box-shadow: 0 0 10px #fff;
-  background-color: #fff;
-  color: #3b28cc;
+  box-shadow: 0 0 10px var(--onPrimary);
+  background-color: var(--onPrimary);
+  color: var(--primary);
 }
 
 .altWindow {

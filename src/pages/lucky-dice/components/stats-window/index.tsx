@@ -1,3 +1,4 @@
+import { useLuckyDiceTheme } from '../../theme';
 import Histogram from '../histogram';
 import classes from './index.module.css';
 
@@ -18,8 +19,10 @@ export default function StatsWindow({
   minStreak,
   isHardMode
 }: StatsWindowProps) {
+  const { themeStyle } = useLuckyDiceTheme();
+  
   return (
-    <div className={classes.root}>
+    <div className={classes.root} style={themeStyle}>
       <p className={classes.text}>
         Times a lucky number was rolled: {luckyRollCount}
       </p>

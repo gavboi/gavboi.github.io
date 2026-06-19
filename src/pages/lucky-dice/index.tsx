@@ -7,13 +7,16 @@ import PlayWindow from './components/play-window';
 import InfoWindow from './components/info-window';
 import { UpgradeName, Achievement, Upgrade, AchievementName, Notice } from './types';
 import { ACHIEVEMENTS, DEFAULT_ROLL_TIME_MS, MAX_NOTICES, ROLL_TIME_REDUCTION_PER_UPGRADE_MS, UPGRADES } from './constants';
-import { randomInt } from '../../helpers/index';
 import AchievementWindow from './components/achievement-window';
 import StatsWindow from './components/stats-window';
+import SettingsWindow from './components/settings-window';
+import { LuckyDiceThemeProvider, useLuckyDiceTheme } from './theme';
 
 type AltScreen = 'achievements' | 'settings' | 'stats' | 'info';
 
-export default function LuckyDicePage() {
+function LuckyDicePageContent() {
+  const { themeStyle } = useLuckyDiceTheme();
+
   // Game State Management
   const [altScreen, setAltScreen] = useState<AltScreen | null>(null);
   const noticeId = useRef(0);
@@ -237,7 +240,7 @@ export default function LuckyDicePage() {
   }
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} style={themeStyle}>
 
       {altScreen === null ? (<>
         <div className={classes.playWindow}>
@@ -293,7 +296,7 @@ export default function LuckyDicePage() {
         </div>
       ) : altScreen === 'settings' ? (
         <div className={classes.altWindow}>
-
+          <SettingsWindow />
         </div>
       ) : altScreen === 'info' ? (
         <div className={classes.altWindow}>
@@ -328,4 +331,12 @@ export default function LuckyDicePage() {
 
     </div>
   );
+}
+
+export default function LuckyDicePage() {
+  return (
+    <LuckyDiceThemeProvider>
+      <LuckyDicePageContent />
+    </LuckyDiceThemeProvider>
+  )
 }

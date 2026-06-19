@@ -1,3 +1,4 @@
+import { useLuckyDiceTheme } from '../../theme';
 import classes from './index.module.css';
 
 interface ItemProps {
@@ -12,6 +13,8 @@ interface ItemProps {
 export default function ShopItem(
   { name, details, cost, counter, currentPoints, onBuy }: ItemProps
 ) {
+  const { themeStyle } = useLuckyDiceTheme();
+
   const maxed = cost === undefined;
   const canNotBuy = currentPoints < cost;
   const disabled = maxed || canNotBuy;
@@ -20,6 +23,7 @@ export default function ShopItem(
     <div 
       className={`${classes.tile} ${disabled ? classes.disabled : ''}`}
       onClick={disabled ? undefined : onBuy}
+      style={themeStyle}
     >
       <div className={classes.titleContainer}>
         <h3 className={classes.titleText}>

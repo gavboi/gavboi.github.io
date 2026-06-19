@@ -1,3 +1,4 @@
+import { useLuckyDiceTheme } from '../../theme';
 import classes from './index.module.css';
 
 interface HistogramProps {
@@ -7,10 +8,11 @@ interface HistogramProps {
 export default function Histogram(
   { rollCounts }: HistogramProps
 ) {
+  const { themeStyle } = useLuckyDiceTheme();
   const maxCount = Math.max(...rollCounts);
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} style={themeStyle}>
       {rollCounts.map((count, index) => (
         <>
           <div

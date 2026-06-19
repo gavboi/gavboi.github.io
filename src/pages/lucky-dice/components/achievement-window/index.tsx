@@ -1,4 +1,5 @@
 import { ACHIEVEMENTS } from '../../constants';
+import { useLuckyDiceTheme } from '../../theme';
 import { AchievementName } from '../../types';
 import AchievementTile from '../achievement-tile';
 import classes from './index.module.css';
@@ -9,8 +10,10 @@ type Props = {
 }
 
 export default function AchievementWindow({ achievements, unlockAchievement }: Props) {
+  const { themeStyle } = useLuckyDiceTheme();
+
   return (
-    <div className={classes.root}>
+    <div className={classes.root} style={themeStyle}>
       <p className={classes.titleText}>
         Achievements {Object.values(achievements).filter(Boolean).length} / {Object.values(ACHIEVEMENTS).filter(Boolean).length}
       </p>

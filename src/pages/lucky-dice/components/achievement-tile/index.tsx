@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { ACHIEVEMENTS } from '../../constants';
 import { AchievementName } from '../../types';
 import classes from './index.module.css';
+import { useLuckyDiceTheme } from '../../theme';
 
 interface TileProps {
   achievementKey: AchievementName;
@@ -12,6 +13,8 @@ interface TileProps {
 export default function AchievementTile(
   { achievementKey, unlocked, unlockHiddenAchievement }: TileProps
 ) {
+  const { themeStyle } = useLuckyDiceTheme();
+
   const isClickable = achievementKey === 'clickable';
   const [clickCount, setClickCount] = useState<number>(0);
 
@@ -31,6 +34,7 @@ export default function AchievementTile(
         `${isClickable ? classes.clickableAchievement : ''}`
       }
       onClick={isClickable ? handleClick : undefined}
+      style={themeStyle}
     >
       <div className={classes.tile}>
         <h3 className={classes.titleText}>{ACHIEVEMENTS[achievementKey].name}</h3>

@@ -1,5 +1,5 @@
 .root {
-  background-color: #112266;
+  background-color: var(--primaryContainer);
   display: flex;
   height: 100%;
   padding: 0 20%;
@@ -10,7 +10,7 @@
 }
 
 .text {
-  color: white;
+  color: var(--onPrimaryContainer);
   font-size: 20px;
   text-align: center;
   margin: 0;

@@ -6,9 +6,9 @@
 }
 
 .bar {
-  background-color: #3f8efc;
+  background-color: var(--secondary);
   grid-row: 1;
-  border: 2px solid #fff;
+  border: 2px solid var(--onSecondary);
   margin: -2px;
   display: flex;
   align-items: flex-end;
@@ -19,7 +19,7 @@
   text-align: center;
   font-size: 1rem;
   font-weight: normal;
-  color: #fff;
+  color: var(--onSecondary);
 }
 
 .label {
@@ -27,5 +27,5 @@
   align-self: center;
   font-size: 1rem;
   font-weight: bold;
-  color: #fff;
+  color: var(--onPrimaryContainer);
 }

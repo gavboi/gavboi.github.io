@@ -50,3 +50,18 @@ export type Notice = {
   text: string;
   animate: boolean;
 }
+
+export type ThemeName = 'blue' | 'dark';
+
+export type Theme = {
+  background: string;
+  onBackground: string;
+  surface: string;
+  onSurface: string;
+  primary: string;
+  onPrimary: string;
+  primaryContainer: string;
+  onPrimaryContainer: string;
+  secondary: string;
+  onSecondary: string;
+}

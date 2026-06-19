@@ -24,7 +24,9 @@
   gap: 0.5rem;
   padding: 0.5rem 0;
   overflow-y: hidden;
-  background-color: #add7f6;
+  background-color: var(--surface);
+  border-top: 2px solid var(--secondary);
+  margin-top: -1px;
 }
 
 .noticeText {
@@ -32,9 +34,11 @@
   font-weight: normal;
   width: 90%;
   padding: 0.5rem;
-  border-left: 4px solid #000;
-  background-color: #ffffff77;
+  border-left: 4px solid var(--onBackground);
+  background-color: var(--background);
+  color: var(--onBackground);
   margin: 0;
+  opacity: 0.5;
 }
 
 .noticeTextAnimated {
@@ -49,7 +53,7 @@
   }
 
   to {
-    opacity: 1;
+    opacity: 0.5;
     transform: translateY(0);
   }
 }

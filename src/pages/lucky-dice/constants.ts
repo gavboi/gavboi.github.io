@@ -1,4 +1,4 @@
-import { Achievement, AchievementName, Upgrade, UpgradeName } from "./types";
+import { Achievement, AchievementName, Theme, ThemeName, Upgrade, UpgradeName } from "./types";
 
 // Configuration
 export const MAX_NOTICES = 15;
@@ -158,4 +158,31 @@ export const ACHIEVEMENTS: Record<AchievementName, Achievement> = {
     name: 'Knock knock',
     description: 'Click this achievement twice'
    }
+};
+
+export const LUCKY_DICE_THEMES: Record<ThemeName, Theme> = {
+  blue: {
+    background: '#fff',
+    onBackground: '#000',
+    surface: '#add7f6',
+    onSurface: '#000',
+    primary: '#3b28cc',
+    onPrimary: '#fff',
+    primaryContainer: '#112266',
+    onPrimaryContainer: '#fff',
+    secondary: '#3f8efc',
+    onSecondary: '#fff',
+  },
+  dark: {
+    background: '#2f2f2f',
+    onBackground: '#fff',
+    surface: '#1f1f1f',
+    onSurface: '#fff',
+    primary: '#080808',
+    onPrimary: '#fff',
+    primaryContainer: '#181818',
+    onPrimaryContainer: '#fff',
+    secondary: '#0f0f0f',
+    onSecondary: '#fff',
+  }
 };
