@@ -11,11 +11,25 @@ import AchievementWindow from './components/achievement-window';
 import StatsWindow from './components/stats-window';
 import SettingsWindow from './components/settings-window';
 import { LuckyDiceThemeProvider, useLuckyDiceTheme } from './theme';
+import useLuckyDiceStore from './components/store';
 
 type AltScreen = 'achievements' | 'settings' | 'stats' | 'info';
 
 function LuckyDicePageContent() {
   const { themeStyle } = useLuckyDiceTheme();
+  const {
+    points, setPoints,
+    isHardMode, setIsHardMode,
+    rollCounts, setRollCounts,
+    luckyRollCount, setLuckyRollCount,
+    currentStreak, setCurrentStreak,
+    maxStreak, setMaxStreak,
+    minStreak, setMinStreak,
+    achievementsUnlocked, setAchievementsUnlocked,
+    upgradeCount, setUpgradeCount,
+    lastSave, saveState,
+    wipeSave, restartGame, restartGameHardMode
+  } = useLuckyDiceStore();
 
   // Game State Management
   const [altScreen, setAltScreen] = useState<AltScreen | null>(null);
@@ -25,8 +39,7 @@ function LuckyDicePageContent() {
   ]);
   const previousAltScreen = useRef<AltScreen | null>(null);
   const [luckyNumber, setLuckyNumber] = useState<number>(1);
-  const [points, setPoints] = useState<number>(0);
-  const [isHardMode, setIsHardMode] = useState<boolean>(false);
+  const [lastThree, setLastThree] = useState<number[]>([]);
 
   useEffect(() => {
     if (previousAltScreen.current === null && altScreen !== null) {
@@ -35,50 +48,6 @@ function LuckyDicePageContent() {
 
     previousAltScreen.current = altScreen;
   }, [altScreen]);
-
-  // Stats State
-  const [rollCounts, setRollCounts] = useState<number[]>(Array<number>(20).fill(0));
-  const [luckyRollCount, setLuckyRollCount] = useState<number>(0);
-  const [currentStreak, setCurrentStreak] = useState<number>(0);
-  const [maxStreak, setMaxStreak] = useState<number>(0);
-  const [minStreak, setMinStreak] = useState<number>(0);
-  const [lastThree, setLastThree] = useState<number[]>([]);
-
-  // Achievements and Upgrades State
-  const [achievementsUnlocked, setAchievementsUnlocked] = useState<Record<AchievementName, boolean>>({
-    '10-rolls': false, // checked on roll
-    'roll-on-roll': false, // unique; click handler
-    '10-fail-consecutive': false, // checked on roll
-    '15-lucky': false, // checked on roll
-    '2-lucky-consecutive': false, // checked on roll
-    'each-once': false, // checked on roll
-    '100-rolls': false, // checked on roll
-    'rich': false, // checked on roll
-    'have-hard-mode': false, // checked on buy
-    'only-lucky': false, // checked on buy, update lucky
-    'no-lucky': false, // checked on buy, update lucky
-    'wait-2-mins': false, // unique; timeout
-    'upgrades-once': false, // checked on buy
-    '500-roll': false, // checked on roll
-    '3-rolling': false, // ?
-    'view-info': false, // checked on handler
-    'click-background': false, // unique; click handler
-    'use-pips': false, // unique; click handler
-    '3-sequence': false, // checked on roll
-    'have-winner': false, // checked on buy
-    'clickable': false // unique; click handler
-  });
-  const [upgradeCount, setUpgradeCount] = useState<Record<UpgradeName, number>>({
-    'more-dice': 0,
-    'faster-rolling': 0,
-    'less-numbers': 0,
-    'higher-payout': 0,
-    'streak-multiplier': 0,
-    'your-lucky-number': 0,
-    'stats': 1,
-    'hard-mode': 0,
-    'winner': 0
-  });
 
   // Check for achievement unlocks on relevant state changes
   useEffect(() => {
@@ -296,7 +265,14 @@ function LuckyDicePageContent() {
         </div>
       ) : altScreen === 'settings' ? (
         <div className={classes.altWindow}>
-          <SettingsWindow />
+          <SettingsWindow 
+            wipeSave={wipeSave}
+            restartGame={restartGame}
+            restartGameHardMode={achievementsUnlocked['hard-mode' as AchievementName] 
+              ? restartGameHardMode 
+              : null
+            }
+          />
         </div>
       ) : altScreen === 'info' ? (
         <div className={classes.altWindow}>

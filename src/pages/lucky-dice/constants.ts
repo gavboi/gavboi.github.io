@@ -59,7 +59,7 @@ export const UPGRADES: Record<UpgradeName, Upgrade> = {
   },
   'hard-mode': {
     name: 'Hard Mode',
-    description: 'Restart game in hard mode',
+    description: 'Unlock hard mode',
     costs: [100],
     countDisplayConversion: (count) => `${count === 0 ? 'Buyable' : 'Bought'}`,
     unlockAchievement: 'rich',
@@ -159,6 +159,8 @@ export const ACHIEVEMENTS: Record<AchievementName, Achievement> = {
     description: 'Click this achievement twice'
    }
 };
+
+export const DEFAULT_LUCKY_DICE_THEME: ThemeName = 'blue';
 
 export const LUCKY_DICE_THEMES: Record<ThemeName, Theme> = {
   blue: {

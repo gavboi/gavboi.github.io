@@ -22,6 +22,7 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 1rem;
+  margin-bottom: 2rem;
 }
 
 .themeButton {
@@ -51,4 +52,22 @@
   font-size: 2rem;
   line-height: 1;
   color: var(--theme-on-primary);
+}
+
+.restartButton {
+  border: 2px solid var(--onSecondary);
+  border-radius: 1rem;
+  min-width: 18rem;
+  font-size: 1rem;
+  font-weight: normal;
+  padding: 0.5rem 1rem;
+  background-color: var(--secondary);
+  color: var(--onSecondary);
+  cursor: pointer;
+}
+
+.wipeButton {
+  border: 2px solid white;
+  background-color: red;
+  color: white; 
 }

@@ -4,7 +4,15 @@ import { LUCKY_DICE_THEMES } from '../../constants';
 import { useLuckyDiceTheme } from '../../theme';
 import { Theme, ThemeName } from '../../types';
 
-export default function SettingsWindow() {
+interface SettingsWindowProps {
+  wipeSave: () => void;
+  restartGame: () => void;
+  restartGameHardMode: null | (() => void);
+}
+
+export default function SettingsWindow(
+  { wipeSave, restartGame, restartGameHardMode }: SettingsWindowProps
+) {
   const { themeStyle, themeName, setThemeName } = useLuckyDiceTheme();
 
   return (
@@ -28,6 +36,18 @@ export default function SettingsWindow() {
           </button>
         ))}
       </div>
+      <h3 className={classes.title}>Game Data</h3>
+      <button className={classes.restartButton} onClick={restartGame}>
+        Restart Game
+      </button>
+      {restartGameHardMode && (
+        <button className={classes.restartButton} onClick={restartGameHardMode}>
+          Restart Game (Hard Mode)
+        </button>
+      )}
+      <button className={`${classes.restartButton} ${classes.wipeButton}`} onClick={wipeSave}>
+        Delete All Game Data
+      </button>
     </div>
   );
 }

@@ -45,6 +45,9 @@ export type Achievement = {
   description: string;
 }
 
+export type AchievementsUnlockedType = Record<AchievementName, boolean>;
+export type UpgradesCountType = Record<UpgradeName, number>;
+
 export type Notice = {
   id: string;
   text: string;
