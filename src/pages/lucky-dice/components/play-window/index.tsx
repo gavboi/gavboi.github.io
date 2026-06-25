@@ -1,7 +1,7 @@
 import Die from '../die';
 import classes from './index.module.css';
 import type { Dispatch, SetStateAction } from 'react';
-import type { AchievementName, Notice } from '../../types';
+import type { AchievementName, DieStyle, Notice } from '../../types';
 import { useLuckyDiceTheme } from '../../theme';
 
 interface PlayProps {
@@ -10,6 +10,7 @@ interface PlayProps {
   numberOfDice: number;
   rollTimeMs: number;
   numberOfFaces: number;
+  dieDesign: DieStyle;
   handleRollResult: (roll: number) => void;
   unlockAchievement: (name: AchievementName) => void;
 }
@@ -32,7 +33,7 @@ function NoticeText({ notice, setNotices }: { notice: Notice; setNotices: Dispat
 }
 
 export default function PlayWindow(
-  { notices, setNotices, numberOfDice, rollTimeMs, numberOfFaces, handleRollResult, unlockAchievement }: PlayProps
+  { notices, setNotices, numberOfDice, rollTimeMs, numberOfFaces, dieDesign, handleRollResult, unlockAchievement }: PlayProps
 ) {
   const { themeStyle } = useLuckyDiceTheme();
   const faces = Array.from({ length: numberOfFaces }, (_, i) => i + 1);
@@ -46,6 +47,8 @@ export default function PlayWindow(
             handleResult={handleRollResult}
             rollTimeMs={rollTimeMs}
             faces={faces}
+            design={dieDesign}
+            usesPips={false}
             unlockAchievement={unlockAchievement}
           />
         ))}

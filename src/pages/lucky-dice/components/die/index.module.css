@@ -2,18 +2,50 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 5vw;
-  height: 5vw;
-  border-width: 1rem;
+  width: 6rem;
+  height: 6rem;
   border-radius: 1rem;
-  border-color: #000;
-  background-color: #ccc;
+}
+
+.whiteDie {
+  border: 0.4rem solid #777;
+  color: #000;
+  background-color: #fff;
+}
+
+.silverDie {
+  border: 0.4rem solid #aaa;
+  color: #333;
+  background: linear-gradient(
+    135deg, 
+    #ccc, 
+    #ddd, 
+    #fff, 
+    #eee, 
+    #ccc, 
+    #bbb,
+    #bbb
+  );
+}
+
+.goldDie {
+  border: 0.4rem solid #e1d176;
+  color: #a7921c;
+  background: linear-gradient(
+    135deg,  
+    #dac549, 
+    #dfd181, 
+    #f2e6a2, 
+    #decc62, 
+    #dec745,
+    #d5bf43,
+    #cdb52b
+  );
 }
 
 .number {
   font-weight: bold;
   font-size: 3rem;
-  color: #000;
 }
 
 .pointer {

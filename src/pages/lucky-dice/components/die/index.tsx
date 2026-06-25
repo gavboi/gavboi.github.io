@@ -1,22 +1,34 @@
 import { useEffect, useRef, useState } from 'react';
 import classes from './index.module.css';
 import { randomFromArray } from '../../../../helpers';
-import { AchievementName } from '../../types';
+import { AchievementName, DieStyle } from '../../types';
+
+
 
 interface DieProps {
   rollTimeMs?: number;
   faces?: number[];
+  design: DieStyle;
+  usesPips: boolean;
   handleResult: (arg0: number) => void; 
   unlockAchievement: (name: AchievementName) => void;
 }
 
-export default function Die(
-  { rollTimeMs = 2000, faces = [1, 2, 3, 4, 5, 6], handleResult, unlockAchievement }: DieProps
-) {
+export default function Die({
+  rollTimeMs = 2000, 
+  faces = [1, 2, 3, 4, 5, 6], 
+  design, 
+  usesPips, 
+  handleResult, 
+  unlockAchievement
+}: DieProps) {
   const [rollModifierClass, setRollModifierClass] = useState<string | null>(null);
   const [value, setValue] = useState<number | '?'>('?');
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const designClass = design === 'white' ? classes.whiteDie 
+    : design === 'silver' ? classes.silverDie 
+    : classes.goldDie;
 
   useEffect(() => {
     return () => {
@@ -63,9 +75,13 @@ export default function Die(
     <div className={`${rollModifierClass ? classes.shakeHorizontal : ''}`}>
     <div className={`${rollModifierClass ? classes.shakeVertical : ''}`}>
       <div 
-        className={`${classes.box} ${rollModifierClass 
-          ? rollModifierClass 
-          : classes.pointer}`} 
+        className={
+          `${classes.box} ` + 
+          `${rollModifierClass 
+            ? rollModifierClass 
+            : classes.pointer} ` +
+          `${designClass}`
+        } 
         onClick={handleStartRoll}
       >
         <p className={classes.number}>{value}</p>

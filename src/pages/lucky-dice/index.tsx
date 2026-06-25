@@ -219,6 +219,12 @@ function LuckyDicePageContent() {
             numberOfDice={1 + upgradeCount['more-dice']}
             rollTimeMs={DEFAULT_ROLL_TIME_MS - (upgradeCount['faster-rolling'] * ROLL_TIME_REDUCTION_PER_UPGRADE_MS)}
             numberOfFaces={(isHardMode ? 20 : 6) - upgradeCount['less-numbers']}
+            dieDesign={upgradeCount['winner']
+              ? 'gold'
+              : upgradeCount['hard-mode']
+                ? 'silver'
+                : 'white'
+            }
             handleRollResult={handleRollResult}
             unlockAchievement={setAchievementUnlocked}
           />
