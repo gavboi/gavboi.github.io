@@ -295,7 +295,7 @@ function LuckyDicePageContent() {
           <SettingsWindow 
             wipeSave={wipeSave}
             restartGame={restartGame}
-            restartGameHardMode={achievementsUnlocked['hard-mode' as AchievementName] 
+            restartGameHardMode={(upgradeCount['hard-mode'] || achievementsUnlocked['have-hard-mode'])
               ? restartGameHardMode 
               : null
             }
