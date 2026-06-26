@@ -146,7 +146,7 @@ export default function useLuckyDiceStore() {
   }
 
   const restartGameHardMode = () => {
-    resetStateHelper(true, true);
+    resetStateHelper(false, true);
   }
 
   useEffect(() => {
