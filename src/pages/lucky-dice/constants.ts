@@ -2,6 +2,8 @@ import { Achievement, AchievementName, Theme, ThemeName, Upgrade, UpgradeName } 
 
 // Configuration
 export const MAX_NOTICES = 15;
+export const EASY_MODE_FACE_COUNT = 6;
+export const HARD_MODE_FACE_COUNT = 20;
 
 // Upgrades
 export const DEFAULT_ROLL_TIME_MS = 3000;
@@ -45,7 +47,7 @@ export const UPGRADES: Record<UpgradeName, Upgrade> = {
   },
   'your-lucky-number': {
     name: 'Pick Lucky Number',
-    description: 'Allow freely choosing a lucky number',
+    description: 'Allow cycling to other lucky numbers by clicking current one',
     costs: [20],
     countDisplayConversion: (count) => `${count === 0 ? 'Buyable' : 'Bought'}`,
     unlockAchievement: 'each-once',

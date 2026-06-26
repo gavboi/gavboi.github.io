@@ -2,11 +2,11 @@ import ShopItem from './components/shop-item';
 import { faGear, faTrophy, faCircleInfo, faChartBar } from '@fortawesome/free-solid-svg-icons';
 import classes from './index.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import PlayWindow from './components/play-window';
 import InfoWindow from './components/info-window';
-import { UpgradeName, Achievement, Upgrade, AchievementName, Notice } from './types';
-import { ACHIEVEMENTS, DEFAULT_ROLL_TIME_MS, MAX_NOTICES, ROLL_TIME_REDUCTION_PER_UPGRADE_MS, UPGRADES } from './constants';
+import { UpgradeName, Upgrade, AchievementName, Notice } from './types';
+import { ACHIEVEMENTS, DEFAULT_ROLL_TIME_MS, EASY_MODE_FACE_COUNT, HARD_MODE_FACE_COUNT, MAX_NOTICES, ROLL_TIME_REDUCTION_PER_UPGRADE_MS, UPGRADES } from './constants';
 import AchievementWindow from './components/achievement-window';
 import StatsWindow from './components/stats-window';
 import SettingsWindow from './components/settings-window';
@@ -19,7 +19,7 @@ function LuckyDicePageContent() {
   const { themeStyle } = useLuckyDiceTheme();
   const {
     points, setPoints,
-    isHardMode, setIsHardMode,
+    isHardMode,
     rollCounts, setRollCounts,
     luckyRollCount, setLuckyRollCount,
     currentStreak, setCurrentStreak,
@@ -27,7 +27,6 @@ function LuckyDicePageContent() {
     minStreak, setMinStreak,
     achievementsUnlocked, setAchievementsUnlocked,
     upgradeCount, setUpgradeCount,
-    lastSave, saveState,
     wipeSave, restartGame, restartGameHardMode
   } = useLuckyDiceStore();
 
@@ -38,8 +37,34 @@ function LuckyDicePageContent() {
     { id: `${noticeId.current++}`, text: 'Welcome!', animate: false }
   ]);
   const previousAltScreen = useRef<AltScreen | null>(null);
+  const achievementsUnlockedRef = useRef(achievementsUnlocked);
   const [luckyNumber, setLuckyNumber] = useState<number>(1);
   const [lastThree, setLastThree] = useState<number[]>([]);
+
+  const addNotice = useCallback((notice: string) => {
+    setNotices((prev) => [
+      { id: `${Date.now()}-${noticeId.current++}`, text: notice, animate: true },
+      ...prev,
+    ].slice(0, MAX_NOTICES));
+  }, []);
+
+  /**
+   * Unlocks the specified achievement and adds a notice about it. 
+   * Does nothing if achievement is already unlocked.
+   */
+  const setAchievementUnlocked = useCallback((achievement: AchievementName) => {
+    if (!achievementsUnlockedRef.current[achievement]) {
+      setAchievementsUnlocked((prev) => ({
+        ...prev,
+        [achievement]: true,
+      }));
+      addNotice(`Achievement Unlocked: ${ACHIEVEMENTS[achievement].name}`);
+    }
+  }, [addNotice, setAchievementsUnlocked]);
+
+  useEffect(() => {
+    achievementsUnlockedRef.current = achievementsUnlocked;
+  }, [achievementsUnlocked]);
 
   useEffect(() => {
     if (previousAltScreen.current === null && altScreen !== null) {
@@ -69,10 +94,10 @@ function LuckyDicePageContent() {
     ) {
       setAchievementUnlocked('3-sequence');
     }
-    if (rollCounts.slice(0, isHardMode ? 20 : 6).every((v) => v > 0)) {
+    if (rollCounts.slice(0, isHardMode ? HARD_MODE_FACE_COUNT : EASY_MODE_FACE_COUNT).every((v) => v > 0)) {
       setAchievementUnlocked('each-once');
     }
-  }, [isHardMode, lastThree, rollCounts]);
+  }, [isHardMode, lastThree, rollCounts, setAchievementUnlocked]);
 
   useEffect(() => {
     if (luckyRollCount >= 15) {
@@ -87,21 +112,7 @@ function LuckyDicePageContent() {
     if (points >= 100) {
       setAchievementUnlocked('rich');
     }
-  }, [currentStreak, luckyRollCount, points]);
-
-  /**
-   * Unlocks the specified achievement and adds a notice about it. 
-   * Does nothing if achievement is already unlocked.
-   */
-  const setAchievementUnlocked = (achievement: AchievementName) => {
-    if (!achievementsUnlocked[achievement]) {
-      setAchievementsUnlocked((prev) => ({
-        ...prev,
-        [achievement]: true,
-      }));
-      addNotice(`Achievement Unlocked: ${ACHIEVEMENTS[achievement].name}`);
-    }
-  }
+  }, [currentStreak, luckyRollCount, points, setAchievementUnlocked]);
 
   /**
    * Checks if the specified upgrade is unlocked based on achievements and returns a boolean.
@@ -116,13 +127,6 @@ function LuckyDicePageContent() {
     }
 
     return achievementsUnlocked[upgrade.unlockAchievement];
-  }
-
-  const addNotice = (notice: string) => {
-    setNotices((prev) => [
-      { id: `${Date.now()}-${noticeId.current++}`, text: notice, animate: true },
-      ...prev,
-    ].slice(0, MAX_NOTICES));
   }
 
   /**
@@ -208,6 +212,18 @@ function LuckyDicePageContent() {
     setAltScreen(altScreen === 'info' ? null : 'info')
   }
 
+  /**
+   * Increases the lucky number, wraps if it exceeds the max face count for the current mode. 
+   * Does nothing if the "your-lucky-number" upgrade is not purchased.
+   */
+  const cycleLuckyNumber = () => {
+    if (!upgradeCount['your-lucky-number']) return null;
+    setLuckyNumber((prev) => {
+      const maxFaceCount = isHardMode ? HARD_MODE_FACE_COUNT : EASY_MODE_FACE_COUNT;
+      return prev >= maxFaceCount ? 1 : prev + 1;
+    });
+  }
+
   return (
     <div className={classes.root} style={themeStyle}>
 
@@ -218,7 +234,7 @@ function LuckyDicePageContent() {
             setNotices={setNotices}
             numberOfDice={1 + upgradeCount['more-dice']}
             rollTimeMs={DEFAULT_ROLL_TIME_MS - (upgradeCount['faster-rolling'] * ROLL_TIME_REDUCTION_PER_UPGRADE_MS)}
-            numberOfFaces={(isHardMode ? 20 : 6) - upgradeCount['less-numbers']}
+            numberOfFaces={(isHardMode ? HARD_MODE_FACE_COUNT : EASY_MODE_FACE_COUNT) - upgradeCount['less-numbers']}
             dieDesign={upgradeCount['winner']
               ? 'gold'
               : upgradeCount['hard-mode']
@@ -233,7 +249,12 @@ function LuckyDicePageContent() {
         <div className={classes.buyWindow}>
           <div className={classes.infoContainer}>
             <p className={classes.infoText}>Points: {points}</p>
-            <p className={classes.infoText}>Lucky Number: {luckyNumber}</p>
+            <p 
+              className={`${classes.infoText} ${upgradeCount['your-lucky-number'] ? classes.pointer : ''}`} 
+              onClick={cycleLuckyNumber}
+            >
+              Lucky Number: {luckyNumber}
+            </p>
           </div>
           {Object.entries(upgradeCount).map(([key, count]) => {
             const typedKey = key as UpgradeName;

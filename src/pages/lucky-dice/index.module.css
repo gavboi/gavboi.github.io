@@ -69,6 +69,10 @@
   grid-row: 1;
 }
 
+.pointer {
+  cursor: pointer;
+}
+
 .clickable {
   transition: transform 0.1s ease;
 }

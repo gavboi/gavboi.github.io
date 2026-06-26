@@ -1,3 +1,4 @@
+import { EASY_MODE_FACE_COUNT, HARD_MODE_FACE_COUNT } from '../../constants';
 import { useLuckyDiceTheme } from '../../theme';
 import Histogram from '../histogram';
 import classes from './index.module.css';
@@ -37,7 +38,7 @@ export default function StatsWindow({
       </p>
       <div className={classes.histogramContainer}>
         <Histogram 
-          rollCounts={rollCounts.slice(0, isHardMode ? 20 : 6)}
+          rollCounts={rollCounts.slice(0, isHardMode ? HARD_MODE_FACE_COUNT : EASY_MODE_FACE_COUNT)}
         />
       </div>
     </div>
