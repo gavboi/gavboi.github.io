@@ -237,7 +237,7 @@ function LuckyDicePageContent() {
             numberOfFaces={(isHardMode ? HARD_MODE_FACE_COUNT : EASY_MODE_FACE_COUNT) - upgradeCount['less-numbers']}
             dieDesign={upgradeCount['winner']
               ? 'gold'
-              : upgradeCount['hard-mode']
+              : isHardMode
                 ? 'silver'
                 : 'white'
             }
