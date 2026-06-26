@@ -11,6 +11,7 @@ interface PlayProps {
   rollTimeMs: number;
   numberOfFaces: number;
   dieDesign: DieStyle;
+  usesPips: boolean;
   handleRollResult: (roll: number) => void;
   unlockAchievement: (name: AchievementName) => void;
 }
@@ -33,7 +34,7 @@ function NoticeText({ notice, setNotices }: { notice: Notice; setNotices: Dispat
 }
 
 export default function PlayWindow(
-  { notices, setNotices, numberOfDice, rollTimeMs, numberOfFaces, dieDesign, handleRollResult, unlockAchievement }: PlayProps
+  { notices, setNotices, numberOfDice, rollTimeMs, numberOfFaces, dieDesign, usesPips, handleRollResult, unlockAchievement }: PlayProps
 ) {
   const { themeStyle } = useLuckyDiceTheme();
   const faces = Array.from({ length: numberOfFaces }, (_, i) => i + 1);
@@ -48,7 +49,7 @@ export default function PlayWindow(
             rollTimeMs={rollTimeMs}
             faces={faces}
             design={dieDesign}
-            usesPips={false}
+            usesPips={usesPips}
             unlockAchievement={unlockAchievement}
           />
         ))}

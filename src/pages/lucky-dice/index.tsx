@@ -27,7 +27,8 @@ function LuckyDicePageContent() {
     minStreak, setMinStreak,
     achievementsUnlocked, setAchievementsUnlocked,
     upgradeCount, setUpgradeCount,
-    wipeSave, restartGame, restartGameHardMode
+    wipeSave, restartGame, restartGameHardMode,
+    usesPips, setUsesPips
   } = useLuckyDiceStore();
 
   // Game State Management
@@ -241,6 +242,7 @@ function LuckyDicePageContent() {
                 ? 'silver'
                 : 'white'
             }
+            usesPips={usesPips}
             handleRollResult={handleRollResult}
             unlockAchievement={setAchievementUnlocked}
           />
@@ -299,6 +301,7 @@ function LuckyDicePageContent() {
               ? restartGameHardMode 
               : null
             }
+            togglePips={() => setUsesPips((prev) => !prev)}
           />
         </div>
       ) : altScreen === 'info' ? (

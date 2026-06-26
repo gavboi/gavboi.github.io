@@ -5,6 +5,8 @@
   width: 6rem;
   height: 6rem;
   border-radius: 1rem;
+  padding: 0.2rem;
+  box-sizing: border-box;
 }
 
 .whiteDie {

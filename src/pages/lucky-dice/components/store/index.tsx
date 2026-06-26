@@ -7,7 +7,8 @@ export default function useLuckyDiceStore() {
   // Core
   const [points, setPoints] = useState<number>(0);
   const [isHardMode, setIsHardMode] = useState<boolean>(false);
-  
+  const [usesPips, setUsesPips] = useState<boolean>(false);
+
   // Bonus Stats
   const [rollCounts, setRollCounts] = useState<number[]>(Array<number>(20).fill(0));
   const [luckyRollCount, setLuckyRollCount] = useState<number>(0);
@@ -69,7 +70,8 @@ export default function useLuckyDiceStore() {
       maxStreak,
       minStreak,
       achievements: achievementsUnlocked,
-      upgrades: upgradeCount
+      upgrades: upgradeCount,
+      usesPips
     };
 
     localStorage.setItem(LUCKY_DICE_SAVE_KEY, JSON.stringify(saveObj));
@@ -100,6 +102,7 @@ export default function useLuckyDiceStore() {
       // Progress
       setAchievementsUnlocked(saveObj.achievements);
       setUpgradeCount(saveObj.upgrades);
+      setUsesPips(saveObj.usesPips);
       console.debug("Game progress loaded from localStorage");
     } catch {
       // ignore
@@ -169,6 +172,7 @@ export default function useLuckyDiceStore() {
     achievementsUnlocked, setAchievementsUnlocked,
     upgradeCount, setUpgradeCount,
     lastSave, saveState,
-    wipeSave, restartGame, restartGameHardMode
+    wipeSave, restartGame, restartGameHardMode,
+    usesPips, setUsesPips
   }
 }

@@ -2,8 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import classes from './index.module.css';
 import { randomFromArray } from '../../../../helpers';
 import { AchievementName, DieStyle } from '../../types';
-
-
+import Pips from './pips';
 
 interface DieProps {
   rollTimeMs?: number;
@@ -29,6 +28,9 @@ export default function Die({
   const designClass = design === 'white' ? classes.whiteDie 
     : design === 'silver' ? classes.silverDie 
     : classes.goldDie;
+  const pipStyle = design === 'white' 
+    ? 'solid'
+    : 'shadow';
 
   useEffect(() => {
     return () => {
@@ -84,7 +86,10 @@ export default function Die({
         } 
         onClick={handleStartRoll}
       >
-        <p className={classes.number}>{value}</p>
+        {usesPips
+          ? <Pips value={value === '?' ? 0 : value} isExtended={faces.length > 9} pipStyle={pipStyle}/>
+          : <p className={classes.number}>{value}</p>
+        }
       </div>
     </div>
     </div>

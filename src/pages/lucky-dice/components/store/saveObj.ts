@@ -14,6 +14,7 @@ export type SaveObjV1 = SaveObj & {
   // Core
   points: number;
   isHardMode: boolean;
+  usesPips: boolean;
   // Stats
   rollCounts: number[];
   luckyRollCount: number;

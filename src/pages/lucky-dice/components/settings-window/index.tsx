@@ -8,10 +8,11 @@ interface SettingsWindowProps {
   wipeSave: () => void;
   restartGame: () => void;
   restartGameHardMode: null | (() => void);
+  togglePips: () => void;
 }
 
 export default function SettingsWindow(
-  { wipeSave, restartGame, restartGameHardMode }: SettingsWindowProps
+  { wipeSave, restartGame, restartGameHardMode, togglePips }: SettingsWindowProps
 ) {
   const { themeStyle, themeName, setThemeName } = useLuckyDiceTheme();
 
@@ -36,6 +37,9 @@ export default function SettingsWindow(
           </button>
         ))}
       </div>
+      <button className={classes.restartButton} onClick={togglePips}>
+        Switch pips/numbers
+      </button>
       <h3 className={classes.title}>Game Data</h3>
       <button className={classes.restartButton} onClick={restartGame}>
         Restart Game
