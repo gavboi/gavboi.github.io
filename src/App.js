@@ -4,6 +4,7 @@ import DefaultPage from './pages/default';
 import HomePage from './pages/home';
 import LegacyPage from './pages/legacy';
 import LuckyDicePage from './pages/lucky-dice/index.tsx';
+import TestPage from './pages/test/index.tsx';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/legacy" element={<LegacyPage />} />
         <Route path='/lucky-dice' element={<LuckyDicePage />} />
+        <Route path='/test' element={<TestPage />} />
         <Route path="*" element={<DefaultPage />} />
       </Routes>
     </BrowserRouter>

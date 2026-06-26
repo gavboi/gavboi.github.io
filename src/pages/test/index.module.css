@@ -1,0 +1,50 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.rowContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.boxContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.cellRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.cell {
+  width: 1rem;
+  height: 1rem;
+  margin: 0.1rem;
+  border: 1px solid #aaa;
+  border-radius: 2rem;
+  cursor: pointer;
+}
+
+.cellOn {
+  background-color: black;
+}
+
+.cellOff {
+  background-color: white;
+}
+
+.success {
+  color: green;
+}
