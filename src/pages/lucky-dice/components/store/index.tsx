@@ -133,9 +133,20 @@ export default function useLuckyDiceStore() {
           key => [key, false])
         ) as AchievementsUnlockedType);
     }
-    setUpgradeCount(Object.fromEntries(Object.keys(upgradeCount).map(
-      key => [key, key === 'hard-mode' && hardMode ? 1 : 0])
-    ) as UpgradesCountType);
+    setUpgradeCount((prevUpgradeCount) => {
+      const newUpgradeCount = Object.fromEntries(Object.keys(prevUpgradeCount).map(
+        key => [key, 0])
+      ) as UpgradesCountType;
+      if (!all) {
+        if (prevUpgradeCount['hard-mode'] > 0) {
+          newUpgradeCount['hard-mode'] = 1;
+        }
+        if (prevUpgradeCount['stats'] > 0) {
+          newUpgradeCount['stats'] = 1;
+        }
+      }
+      return newUpgradeCount;
+    });
     // State
     setLastSave(Date.now());
     localStorage.removeItem(LUCKY_DICE_SAVE_KEY);
