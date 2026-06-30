@@ -38,7 +38,11 @@ export default function useLuckyDiceStore() {
     'use-pips': false, // unique; click handler
     '3-sequence': false, // checked on roll
     'have-winner': false, // checked on buy
-    'clickable': false // unique; click handler
+    'clickable': false, // unique; click handler
+    '666': false, // checked on roll
+    '420': false, // checked on roll
+    'lucky-20': false, // checked on roll
+    'very-rich': false // checked on roll
   });
 
   const [upgradeCount, setUpgradeCount] = useState<UpgradesCountType>({

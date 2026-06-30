@@ -38,7 +38,11 @@ export type AchievementName =
   'use-pips' |
   '3-sequence' |
   'have-winner' |
-  'clickable';
+  'clickable' |
+  '666' |
+  '420' |
+  'lucky-20' |
+  'very-rich';
 
 export type Achievement = {
   name: string;

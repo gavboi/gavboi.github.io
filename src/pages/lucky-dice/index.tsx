@@ -96,6 +96,19 @@ function LuckyDicePageContent() {
     ) {
       setAchievementUnlocked('3-sequence');
     }
+    if (
+      lastThree.length === 3 && 
+      lastThree.every((v) => v === 6)
+    ) {
+      setAchievementUnlocked('666');
+    }
+    if (
+      lastThree.length >= 2 && 
+      lastThree[0] === 20 && 
+      lastThree[1] === 4
+    ) {
+      setAchievementUnlocked('420');
+    }
     if (rollCounts.slice(0, isHardMode ? HARD_MODE_FACE_COUNT : EASY_MODE_FACE_COUNT).every((v) => v > 0)) {
       setAchievementUnlocked('each-once');
     }
@@ -113,6 +126,9 @@ function LuckyDicePageContent() {
     }
     if (points >= 100) {
       setAchievementUnlocked('rich');
+    }
+    if (points >= 1_000_000_000_000_000) {
+      setAchievementUnlocked('very-rich');
     }
   }, [currentStreak, luckyRollCount, points, setAchievementUnlocked]);
 
@@ -148,6 +164,10 @@ function LuckyDicePageContent() {
       return next;
     });
     setLastThree((prev) => [value, ...prev].slice(0, 3));
+    // Direct roll achievements
+    if (value === 20 && luckyNumber === 20) {
+      setAchievementUnlocked('lucky-20');
+    }
     
     const isLuckyRoll = value === luckyNumber;
     if (isLuckyRoll) {

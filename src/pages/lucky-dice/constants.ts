@@ -159,7 +159,23 @@ export const ACHIEVEMENTS: Record<AchievementName, Achievement> = {
   'clickable': {
     name: 'Knock knock',
     description: 'Click this achievement twice'
-   }
+  },
+  '666': {
+    name: 'Number of the Beast',
+    description: 'Roll three 6s in a row'
+  },
+  '420': {
+    name: 'Blaze It',
+    description: 'Roll a 4 and then a 20'
+  },
+  'lucky-20': {
+    name: 'Critical Success',
+    description: 'Roll a lucky number 20'
+  },
+  'very-rich': {
+    name: 'Now what?',
+    description: 'Save up 1 quadrillion points'
+  }
 };
 
 export const DEFAULT_LUCKY_DICE_THEME: ThemeName = 'blue';
