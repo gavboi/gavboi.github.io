@@ -314,9 +314,9 @@ function LuckyDicePageContent() {
             numberOfDice={1 + upgradeCount['more-dice']}
             rollTimeMs={DEFAULT_ROLL_TIME_MS - (upgradeCount['faster-rolling'] * ROLL_TIME_REDUCTION_PER_UPGRADE_MS)}
             numberOfFaces={(isHardMode ? HARD_MODE_FACE_COUNT : EASY_MODE_FACE_COUNT) - upgradeCount['less-numbers']}
-            dieDesign={upgradeCount['winner']
+            dieDesign={achievementsUnlocked['have-winner']
               ? 'gold'
-              : isHardMode
+              : achievementsUnlocked['have-hard-mode']
                 ? 'silver'
                 : 'white'
             }
