@@ -10,6 +10,7 @@ interface DieProps {
   design: DieStyle;
   usesPips: boolean;
   handleResult: (arg0: number) => void; 
+  onClick: () => void;
   unlockAchievement: (name: AchievementName) => void;
 }
 
@@ -19,6 +20,7 @@ export default function Die({
   design, 
   usesPips, 
   handleResult, 
+  onClick,
   unlockAchievement
 }: DieProps) {
   const [rollModifierClass, setRollModifierClass] = useState<string | null>(null);
@@ -84,7 +86,10 @@ export default function Die({
             : classes.pointer} ` +
           `${designClass}`
         } 
-        onClick={handleStartRoll}
+        onClick={() => {
+          handleStartRoll();
+          onClick();
+        }}
       >
         {usesPips
           ? <Pips value={value === '?' ? 0 : value} isExtended={faces.length > 9} pipStyle={pipStyle}/>

@@ -121,12 +121,12 @@ export const ACHIEVEMENTS: Record<AchievementName, Achievement> = {
     description: 'Make the lucky number unavailable to roll'
   },
   'wait-2-mins': {
-    name: 'Forgetful',
-    description: 'No rolling for two minutes'
+    name: 'This isn\'t an idle game',
+    description: 'Do nothing for two minutes'
   },
   'upgrades-once': {
-    name: 'Hoarder',
-    description: 'Buy all 7 upgrades at least once (no hard mode)'
+    name: 'Savvy Shopper',
+    description: 'Buy all upgrades at least once (not including one-time unlockables)'
   },
   '500-roll': {
     name: 'Addiction',
@@ -142,7 +142,7 @@ export const ACHIEVEMENTS: Record<AchievementName, Achievement> = {
   },
   'click-background': {
     name: "Spray n' Pray",
-    description: 'Miss a die roll'
+    description: 'Click beside a die instead of on it'
   },
   'use-pips': {
     name: 'Classic',

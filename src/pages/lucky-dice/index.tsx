@@ -39,6 +39,7 @@ function LuckyDicePageContent() {
   ]);
   const previousAltScreen = useRef<AltScreen | null>(null);
   const achievementsUnlockedRef = useRef(achievementsUnlocked);
+  const idleTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const [luckyNumber, setLuckyNumber] = useState<number>(1);
   const [lastThree, setLastThree] = useState<number[]>([]);
 
@@ -172,16 +173,43 @@ function LuckyDicePageContent() {
 
   /**
    * Subtracts points and increases count for specified upgrade.
+   * Checks if any achievements should be unlocked as a result of the purchase.
    * 
    * @param index Number indicating which upgrade was bought
    */
   const handleBuyUpgrade = (key: UpgradeName) => {
     const cost = UPGRADES[key].costs[upgradeCount[key]];
     if (points >= cost) {
-      setPoints(points - cost);
-      const newUpgradeCount = { ...upgradeCount };
-      newUpgradeCount[key] = upgradeCount[key] + 1;
-      setUpgradeCount(newUpgradeCount);
+      setUpgradeCount((prev) => {
+        setPoints((prevPoints) => prevPoints - cost);
+        const newUpgradeCount = { ...prev };
+        newUpgradeCount[key] = upgradeCount[key] + 1;
+        // Check achievements
+        if (key == 'hard-mode') {
+          setAchievementUnlocked('have-hard-mode');
+        }
+        if (key == 'winner') {
+          setAchievementUnlocked('have-winner');
+        }
+        const sides = (isHardMode ? HARD_MODE_FACE_COUNT : EASY_MODE_FACE_COUNT) - upgradeCount['less-numbers'];
+        if (luckyNumber > sides) {
+          setAchievementUnlocked('no-lucky');
+        }
+        if (luckyNumber === 1 && sides === 1) {
+          setAchievementUnlocked('only-lucky');
+        }
+        const allUpgradesBought = { 
+          ...newUpgradeCount,
+          'stats': 99, // manually set purchaseables ignored for achievement
+          'hard-mode': 99,
+          'winner': 99
+        };
+        if (Object.values(allUpgradesBought).every((count) => count > 0)) {
+          setAchievementUnlocked('upgrades-once');
+        }
+
+        return newUpgradeCount;
+      });
     }
   }
 
@@ -211,6 +239,7 @@ function LuckyDicePageContent() {
    */
   const handleInfoClick = () => {
     setAltScreen(altScreen === 'info' ? null : 'info')
+    setAchievementUnlocked('view-info');
   }
 
   /**
@@ -221,12 +250,41 @@ function LuckyDicePageContent() {
     if (!upgradeCount['your-lucky-number']) return null;
     setLuckyNumber((prev) => {
       const maxFaceCount = isHardMode ? HARD_MODE_FACE_COUNT : EASY_MODE_FACE_COUNT;
-      return prev >= maxFaceCount ? 1 : prev + 1;
+      const newLuckyNumber = prev >= maxFaceCount ? 1 : prev + 1;
+      // Check achievements
+      const sides = maxFaceCount - upgradeCount['less-numbers'];
+      if (newLuckyNumber > sides) {
+        setAchievementUnlocked('no-lucky');
+      }
+      if (newLuckyNumber === 1 && sides === 1) {
+        setAchievementUnlocked('only-lucky');
+      }
+
+      return newLuckyNumber;
     });
   }
 
+  const togglePips = () => {
+    setUsesPips((prev) => {
+      const newUsesPips = !prev;
+      if (newUsesPips) {
+        setAchievementUnlocked('use-pips');
+      }
+      return newUsesPips;
+    });
+  }
+
+  const handleClickAnywhere = () => {
+    if (idleTimeoutRef.current) {
+      clearTimeout(idleTimeoutRef.current);
+    }
+    idleTimeoutRef.current = setTimeout(() => {
+      setAchievementUnlocked('wait-2-mins');
+    }, 120000);
+  }
+
   return (
-    <div className={classes.root} style={themeStyle}>
+    <div className={classes.root} style={themeStyle} onClick={handleClickAnywhere}>
 
       {altScreen === null ? (<>
         <div className={classes.playWindow}>
@@ -279,7 +337,10 @@ function LuckyDicePageContent() {
         </div>
       </>) : altScreen === 'achievements' ? (
         <div className={classes.altWindow}>
-          <AchievementWindow achievements={achievementsUnlocked} unlockAchievement={setAchievementUnlocked} />
+          <AchievementWindow
+            achievements={achievementsUnlocked}
+            unlockAchievement={setAchievementUnlocked}
+          />
         </div>
       ): altScreen === 'stats' ? (
         <div className={classes.altWindow}>
@@ -301,7 +362,7 @@ function LuckyDicePageContent() {
               ? restartGameHardMode 
               : null
             }
-            togglePips={() => setUsesPips((prev) => !prev)}
+            togglePips={togglePips}
           />
         </div>
       ) : altScreen === 'info' ? (

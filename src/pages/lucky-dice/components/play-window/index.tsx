@@ -1,6 +1,6 @@
 import Die from '../die';
 import classes from './index.module.css';
-import type { Dispatch, SetStateAction } from 'react';
+import { useState, type Dispatch, type SetStateAction } from 'react';
 import type { AchievementName, DieStyle, Notice } from '../../types';
 import { useLuckyDiceTheme } from '../../theme';
 
@@ -37,15 +37,37 @@ export default function PlayWindow(
   { notices, setNotices, numberOfDice, rollTimeMs, numberOfFaces, dieDesign, usesPips, handleRollResult, unlockAchievement }: PlayProps
 ) {
   const { themeStyle } = useLuckyDiceTheme();
-  const faces = Array.from({ length: numberOfFaces }, (_, i) => i + 1);
+  const faces: number[] = Array.from({ length: numberOfFaces }, (_, i) => i + 1);
+  const [rollTimes, setRollTimes] = useState<number[]>(Array.from({ length: numberOfDice }, () => 0));
+
+  const handleBgClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) {
+      unlockAchievement('click-background');
+    }
+  }
+
+  const handleDieClick = (i: number) => {
+    setRollTimes((prev) => {
+      const newRollTimes = [...prev];
+      newRollTimes[i] = Date.now();
+      // Achievement check
+      const rollingNowCount = newRollTimes.filter(time => time >= Date.now() - rollTimeMs).length;
+      if (rollingNowCount >= 3) {
+        unlockAchievement('3-rolling');
+      }
+
+      return newRollTimes;
+    });
+  };
 
   return (
     <div className={classes.root} style={themeStyle}>
-      <div className={classes.diceContainer}>
+      <div className={classes.diceContainer} onClick={(e) => handleBgClick(e)}>
         {Array.from({ length: numberOfDice }).map((_, i) => (
           <Die
             key={i}
             handleResult={handleRollResult}
+            onClick={() => handleDieClick(i)}
             rollTimeMs={rollTimeMs}
             faces={faces}
             design={dieDesign}
