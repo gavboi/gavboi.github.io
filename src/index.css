@@ -1,5 +1,11 @@
 @import './theme/themes.css';
 
+@font-face {
+  font-family: 'PHSecret';
+  src: url('../public/fonts/PHSecret.otf') format('opentype');
+  font-display: swap;
+}
+
 body {
   margin: 0;
   font-family: sans-serif;
