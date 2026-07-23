@@ -161,8 +161,8 @@ function LuckyDicePageContent() {
     if (nextRollCounts.slice(0, isHardMode ? HARD_MODE_FACE_COUNT : EASY_MODE_FACE_COUNT).every((v) => v > 0)) {
       achievementsToAdd.push('each-once');
     }
-    if (nextLuckyRollCount >= 15) {
-      achievementsToAdd.push('15-lucky');
+    if (nextLuckyRollCount >= 10) {
+      achievementsToAdd.push('10-lucky');
     }
     if (nextCurrentStreak >= 2) {
       achievementsToAdd.push('2-lucky-consecutive');

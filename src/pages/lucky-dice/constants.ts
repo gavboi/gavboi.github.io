@@ -36,7 +36,7 @@ export const UPGRADES: Record<UpgradeName, Upgrade> = {
     description: '+1 point for a lucky roll',
     costs: [49, 6500, 37_000, 240_000],
     countDisplayConversion: (count) => `${count + 1} point${count !== 0 ? 's' : ''}`,
-    unlockAchievement: '15-lucky',
+    unlockAchievement: '10-lucky',
   },
   'streak-multiplier': {
     name: 'Streak Multiplier',
@@ -88,9 +88,9 @@ export const ACHIEVEMENTS: Record<AchievementName, Achievement> = {
     name: 'Unlucky',
     description: 'Roll a failure 10 times in a row'
   },
-  '15-lucky': {
+  '10-lucky': {
     name: 'Locked In',
-    description: 'Roll lucky number 15 times'
+    description: 'Roll lucky number 10 times'
   },
   '2-lucky-consecutive': {
     name: 'Better Than Lightning',

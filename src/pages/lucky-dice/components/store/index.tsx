@@ -21,7 +21,7 @@ export default function useLuckyDiceStore() {
     '10-rolls': false, // checked on roll
     'roll-on-roll': false, // unique; click handler
     '10-fail-consecutive': false, // checked on roll
-    '15-lucky': false, // checked on roll
+    '10-lucky': false, // checked on roll
     '2-lucky-consecutive': false, // checked on roll
     'each-once': false, // checked on roll
     '100-rolls': false, // checked on roll

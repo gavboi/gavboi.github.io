@@ -21,7 +21,7 @@ export type AchievementName =
   '10-rolls' |
   'roll-on-roll' |
   '10-fail-consecutive' |
-  '15-lucky' |
+  '10-lucky' |
   '2-lucky-consecutive' |
   'each-once' |
   '100-rolls' |
