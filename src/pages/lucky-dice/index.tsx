@@ -369,9 +369,10 @@ function LuckyDicePageContent() {
           </div>
           {Object.entries(upgradeCount).map(([key, count]) => {
             const typedKey = key as UpgradeName;
+            const winnerInEasy = typedKey === 'winner' && !isHardMode;
             return (
               <div key={key} className={classes.upgradeList}>
-                {isUpgradeUnlocked(UPGRADES[typedKey]) &&
+                {isUpgradeUnlocked(UPGRADES[typedKey]) && !winnerInEasy &&
                   <ShopItem
                     key={key}
                     name={UPGRADES[typedKey].name}
