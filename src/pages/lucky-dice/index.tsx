@@ -334,6 +334,18 @@ function LuckyDicePageContent() {
     }, 120000);
   }
 
+  /**
+   * Wrapper function for restarting the game that also adjusts the screen
+   * and clears the notices.
+   * 
+   * @param clearFunc Function to handle save data editing
+   */
+  const handleRestartGame = (clearFunc: () => void) => {
+    clearFunc();
+    setNotices([{ id: `${noticeId.current++}`, text: 'Restarted Game!', animate: true }]);
+    setAltScreen(null);
+  }
+
   return (
     <div className={classes.root} style={themeStyle} onClick={handleClickAnywhere}>
 
@@ -408,19 +420,10 @@ function LuckyDicePageContent() {
       ) : altScreen === 'settings' ? (
         <div className={classes.altWindow}>
           <SettingsWindow 
-            wipeSave={() => {
-              wipeSave();
-              setAltScreen(null);
-            }}
-            restartGame={() => {
-              restartGame();
-              setAltScreen(null);
-            }}
+            wipeSave={() => handleRestartGame(wipeSave)}
+            restartGame={() => handleRestartGame(restartGame)}
             restartGameHardMode={(upgradeCount['hard-mode'] || achievementsUnlocked['have-hard-mode'])
-              ? () => {
-                  restartGameHardMode();
-                  setAltScreen(null);
-                }
+              ? () => handleRestartGame(restartGameHardMode)
               : null
             }
             togglePips={togglePips}
