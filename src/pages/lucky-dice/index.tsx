@@ -408,10 +408,19 @@ function LuckyDicePageContent() {
       ) : altScreen === 'settings' ? (
         <div className={classes.altWindow}>
           <SettingsWindow 
-            wipeSave={wipeSave}
-            restartGame={restartGame}
+            wipeSave={() => {
+              wipeSave();
+              setAltScreen(null);
+            }}
+            restartGame={() => {
+              restartGame();
+              setAltScreen(null);
+            }}
             restartGameHardMode={(upgradeCount['hard-mode'] || achievementsUnlocked['have-hard-mode'])
-              ? restartGameHardMode 
+              ? () => {
+                  restartGameHardMode();
+                  setAltScreen(null);
+                }
               : null
             }
             togglePips={togglePips}
