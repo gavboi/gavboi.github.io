@@ -42,8 +42,10 @@ function LuckyDicePageContent() {
   const idleTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const [luckyNumber, setLuckyNumber] = useState<number>(1);
   const [lastThree, setLastThree] = useState<number[]>([]);
-
+  const [pendingRolls, setPendingRolls] = useState<number[]>([]);
+  
   const addNotice = useCallback((notice: string) => {
+    console.log(`Notice: ${notice}`);
     setNotices((prev) => [
       { id: `${Date.now()}-${noticeId.current++}`, text: notice, animate: true },
       ...prev,
@@ -76,61 +78,121 @@ function LuckyDicePageContent() {
     previousAltScreen.current = altScreen;
   }, [altScreen]);
 
-  // Check for achievement unlocks on relevant state changes
+  /**
+   * Processes any pending rolls, updating the relevant state and checking for achievements.
+   * 
+   * Handled via queue in useEffect to avoid issues with stale state and duplicate calls
+   * in development mode due to React.StrictMode.
+   */
   useEffect(() => {
-    const totalRolls = rollCounts.reduce((a, b) => a + b, 0);
+    if (pendingRolls.length === 0) {
+      return;
+    }
 
-    if (totalRolls >= 10) {
-      setAchievementUnlocked('10-rolls');
-    }
-    if (totalRolls >= 100) {
-      setAchievementUnlocked('100-rolls');
-    }
-    if (totalRolls >= 500) {
-      setAchievementUnlocked('500-roll');
-    }
-    if (
-      lastThree.length === 3 && 
-      lastThree[0] - 1 === lastThree[1] && 
-      lastThree[1] - 1 === lastThree[2]
-    ) {
-      setAchievementUnlocked('3-sequence');
-    }
-    if (
-      lastThree.length === 3 && 
-      lastThree.every((v) => v === 6)
-    ) {
-      setAchievementUnlocked('666');
-    }
-    if (
-      lastThree.length >= 2 && 
-      lastThree[0] === 20 && 
-      lastThree[1] === 4
-    ) {
-      setAchievementUnlocked('420');
-    }
-    if (rollCounts.slice(0, isHardMode ? HARD_MODE_FACE_COUNT : EASY_MODE_FACE_COUNT).every((v) => v > 0)) {
-      setAchievementUnlocked('each-once');
-    }
-  }, [isHardMode, lastThree, rollCounts, setAchievementUnlocked]);
+    // Fetch current state
+    let nextRollCounts = [...rollCounts];
+    let nextLastThree = [...lastThree];
+    let nextLuckyRollCount = luckyRollCount;
+    let nextCurrentStreak = currentStreak;
+    let nextMaxStreak = maxStreak;
+    let nextMinStreak = minStreak;
+    let nextPoints = points;
+    const noticesToAdd: string[] = [];
+    const achievementsToAdd: AchievementName[] = [];
 
-  useEffect(() => {
-    if (luckyRollCount >= 15) {
-      setAchievementUnlocked('15-lucky');
+    // Process each roll by adding to the relevant state and checking for achievements
+    for (const roll of pendingRolls) {
+      nextRollCounts[roll - 1]++;
+      nextLastThree = [roll, ...nextLastThree].slice(0, 3);
+
+      if (roll === 20 && luckyNumber === 20) {
+        achievementsToAdd.push('lucky-20');
+      }
+
+      if (roll === luckyNumber) {
+        const nextStreak = Math.max(nextCurrentStreak, 0) + 1;
+        const pointsGained = (1 + upgradeCount['higher-payout']) * ((upgradeCount['streak-multiplier'] + 1) ** (nextStreak - 1));
+
+        nextLuckyRollCount += 1;
+        nextCurrentStreak = nextStreak;
+        nextPoints += pointsGained;
+        nextMaxStreak = Math.max(nextMaxStreak, nextStreak);
+        noticesToAdd.push(`You rolled a ${roll}! (+${pointsGained})`);
+      } else {
+        const nextStreak = Math.min(nextCurrentStreak, 0) - 1;
+
+        nextCurrentStreak = nextStreak;
+        nextMinStreak = Math.min(nextMinStreak, nextStreak);
+        noticesToAdd.push(`You rolled a ${roll}`);
+      }
     }
-    if (currentStreak >= 2) {
-      setAchievementUnlocked('2-lucky-consecutive');
+
+    // Check for general achievements based on new values
+    const nextTotalRolls = nextRollCounts.reduce((a, b) => a + b, 0);
+    if (nextTotalRolls >= 10) {
+      achievementsToAdd.push('10-rolls');
     }
-    if (currentStreak <= -10) {
-      setAchievementUnlocked('10-fail-consecutive');
+    if (nextTotalRolls >= 100) {
+      achievementsToAdd.push('100-rolls');
     }
-    if (points >= 100) {
-      setAchievementUnlocked('rich');
+    if (nextTotalRolls >= 500) {
+      achievementsToAdd.push('500-roll');
     }
-    if (points >= 1_000_000_000_000_000) {
-      setAchievementUnlocked('very-rich');
+    if (
+      nextLastThree.length === 3 && 
+      nextLastThree[0] - 1 === nextLastThree[1] && 
+      nextLastThree[1] - 1 === nextLastThree[2]
+    ) {
+      achievementsToAdd.push('3-sequence');
     }
-  }, [currentStreak, luckyRollCount, points, setAchievementUnlocked]);
+    if (
+      nextLastThree.length === 3 && 
+      nextLastThree.every((v) => v === 6)
+    ) {
+      achievementsToAdd.push('666');
+    }
+    if (
+      nextLastThree.length >= 2 && 
+      nextLastThree[0] === 20 && 
+      nextLastThree[1] === 4
+    ) {
+      achievementsToAdd.push('420');
+    }
+    if (nextRollCounts.slice(0, isHardMode ? HARD_MODE_FACE_COUNT : EASY_MODE_FACE_COUNT).every((v) => v > 0)) {
+      achievementsToAdd.push('each-once');
+    }
+    if (nextLuckyRollCount >= 15) {
+      achievementsToAdd.push('15-lucky');
+    }
+    if (nextCurrentStreak >= 2) {
+      achievementsToAdd.push('2-lucky-consecutive');
+    }
+    if (nextCurrentStreak <= -10) {
+      achievementsToAdd.push('10-fail-consecutive');
+    }
+    if (nextPoints >= 100) {
+      achievementsToAdd.push('rich');
+    }
+    if (nextPoints >= 1_000_000_000_000_000) {
+      achievementsToAdd.push('very-rich');
+    }
+
+    // Update state with new values
+    setRollCounts(nextRollCounts);
+    setLastThree(nextLastThree);
+    setLuckyRollCount(nextLuckyRollCount);
+    setCurrentStreak(nextCurrentStreak);
+    setMaxStreak(nextMaxStreak);
+    setMinStreak(nextMinStreak);
+    setPoints(nextPoints);
+
+    // Apply notices
+    noticesToAdd.forEach((notice) => addNotice(notice));
+    achievementsToAdd.forEach((achievement) => setAchievementUnlocked(achievement));
+
+    // Clear queue
+    setPendingRolls([]);
+  }, [addNotice, currentStreak, lastThree, luckyRollCount, maxStreak, minStreak, pendingRolls, points, rollCounts, luckyNumber, upgradeCount, setAchievementUnlocked]);
 
   /**
    * Checks if the specified upgrade is unlocked based on achievements and returns a boolean.
@@ -157,38 +219,7 @@ function LuckyDicePageContent() {
    * @param value Number that was rolled
    */
   const handleRollResult = (value: number) => {
-    // Roll stats
-    setRollCounts((prev) => {
-      const next = [...prev];
-      next[value - 1]++;
-      return next;
-    });
-    setLastThree((prev) => [value, ...prev].slice(0, 3));
-    // Direct roll achievements
-    if (value === 20 && luckyNumber === 20) {
-      setAchievementUnlocked('lucky-20');
-    }
-    
-    const isLuckyRoll = value === luckyNumber;
-    if (isLuckyRoll) {
-      // Lucky roll stats
-      setLuckyRollCount((prev) => prev + 1);
-      setCurrentStreak((prev) => {
-        const next = Math.max(prev, 0) + 1;
-        const pointsGained = (1 + upgradeCount['higher-payout']) * ((upgradeCount['streak-multiplier'] + 1) ** (next - 1));
-        setPoints((prevPoints) => prevPoints + pointsGained);
-        setMaxStreak((prevMax) => Math.max(prevMax, next));
-        return next;
-      });
-    } else {
-      // Unlucky roll stats
-      setCurrentStreak((prev) => {
-        const next = Math.min(prev, 0) - 1;
-        setMinStreak((prevMin) => Math.min(prevMin, next));
-        return next;
-      });
-    }
-    addNotice(`You rolled a ${value}${isLuckyRoll ? '!' : ''}`);
+    setPendingRolls((prev) => [...prev, value]);
   }
 
   /**
@@ -200,36 +231,33 @@ function LuckyDicePageContent() {
   const handleBuyUpgrade = (key: UpgradeName) => {
     const cost = UPGRADES[key].costs[upgradeCount[key]];
     if (points >= cost) {
-      setUpgradeCount((prev) => {
-        setPoints((prevPoints) => prevPoints - cost);
-        const newUpgradeCount = { ...prev };
-        newUpgradeCount[key] = upgradeCount[key] + 1;
-        // Check achievements
-        if (key == 'hard-mode') {
-          setAchievementUnlocked('have-hard-mode');
-        }
-        if (key == 'winner') {
-          setAchievementUnlocked('have-winner');
-        }
-        const sides = (isHardMode ? HARD_MODE_FACE_COUNT : EASY_MODE_FACE_COUNT) - upgradeCount['less-numbers'];
-        if (luckyNumber > sides) {
-          setAchievementUnlocked('no-lucky');
-        }
-        if (luckyNumber === 1 && sides === 1) {
-          setAchievementUnlocked('only-lucky');
-        }
-        const allUpgradesBought = { 
-          ...newUpgradeCount,
-          'stats': 99, // manually set purchaseables ignored for achievement
-          'hard-mode': 99,
-          'winner': 99
-        };
-        if (Object.values(allUpgradesBought).every((count) => count > 0)) {
-          setAchievementUnlocked('upgrades-once');
-        }
-
-        return newUpgradeCount;
-      });
+      setPoints((prevPoints) => prevPoints - cost);
+      const newUpgradeCount = { ...upgradeCount };
+      newUpgradeCount[key] = upgradeCount[key] + 1;
+      // Check achievements
+      if (key == 'hard-mode') {
+        setAchievementUnlocked('have-hard-mode');
+      }
+      if (key == 'winner') {
+        setAchievementUnlocked('have-winner');
+      }
+      const sides = (isHardMode ? HARD_MODE_FACE_COUNT : EASY_MODE_FACE_COUNT) - upgradeCount['less-numbers'];
+      if (luckyNumber > sides) {
+        setAchievementUnlocked('no-lucky');
+      }
+      if (luckyNumber === 1 && sides === 1) {
+        setAchievementUnlocked('only-lucky');
+      }
+      const allUpgradesBought = { 
+        ...newUpgradeCount,
+        'stats': 99, // manually set purchaseables ignored for achievement
+        'hard-mode': 99,
+        'winner': 99
+      };
+      if (Object.values(allUpgradesBought).every((count) => count > 0)) {
+        setAchievementUnlocked('upgrades-once');
+      }
+      setUpgradeCount(newUpgradeCount);
     }
   }
 
@@ -268,32 +296,35 @@ function LuckyDicePageContent() {
    */
   const cycleLuckyNumber = () => {
     if (!upgradeCount['your-lucky-number']) return null;
-    setLuckyNumber((prev) => {
-      const maxFaceCount = isHardMode ? HARD_MODE_FACE_COUNT : EASY_MODE_FACE_COUNT;
-      const newLuckyNumber = prev >= maxFaceCount ? 1 : prev + 1;
-      // Check achievements
-      const sides = maxFaceCount - upgradeCount['less-numbers'];
-      if (newLuckyNumber > sides) {
-        setAchievementUnlocked('no-lucky');
-      }
-      if (newLuckyNumber === 1 && sides === 1) {
-        setAchievementUnlocked('only-lucky');
-      }
-
-      return newLuckyNumber;
-    });
+    const maxFaceCount = isHardMode ? HARD_MODE_FACE_COUNT : EASY_MODE_FACE_COUNT;
+    const newLuckyNumber = luckyNumber >= maxFaceCount ? 1 : luckyNumber + 1;
+    // Check achievements
+    const sides = maxFaceCount - upgradeCount['less-numbers'];
+    if (newLuckyNumber > sides) {
+      setAchievementUnlocked('no-lucky');
+    }
+    if (newLuckyNumber === 1 && sides === 1) {
+      setAchievementUnlocked('only-lucky');
+    }
+    setLuckyNumber(newLuckyNumber);
   }
 
+  /**
+   * Toggles the use of pips on the dice. Unlocks the "use-pips" achievement 
+   * if pips are enabled.
+   */
   const togglePips = () => {
-    setUsesPips((prev) => {
-      const newUsesPips = !prev;
-      if (newUsesPips) {
-        setAchievementUnlocked('use-pips');
-      }
-      return newUsesPips;
-    });
+    const newPipsState = !usesPips;
+    if (newPipsState) {
+      setAchievementUnlocked('use-pips');
+    }
+    setUsesPips(newPipsState);
   }
 
+  /**
+   * Resets the idle timer whenever the user clicks anywhere on the page. 
+   * If the user does not click for 2 minutes, unlocks the "wait-2-mins" achievement.
+   */
   const handleClickAnywhere = () => {
     if (idleTimeoutRef.current) {
       clearTimeout(idleTimeoutRef.current);
