@@ -1,4 +1,4 @@
-import './index.css';
+import classes from './index.module.css';
 import { useState, useEffect } from 'react';
 
 export default function Header() {
@@ -22,9 +22,9 @@ export default function Header() {
   });
 
   return (
-    <div className="header">
+    <div className={classes.header}>
 
-      <div className="header-left">
+      <div className={classes.headerLeft}>
         <a
           href='https://github.com/gavboi'
           target='_blank'
@@ -32,18 +32,18 @@ export default function Header() {
           aria-label="Visit Gavin's GitHub profile"
         >
           <img
-            className='header-image'
+            className={classes.headerImage}
             src='https://avatars.githubusercontent.com/u/50150638?v=4'
             alt='Gavin'
           />
         </a>
       </div>
 
-      <div className="header-center">
+      <div className={classes.headerCenter}>
         <p>gavboi.github.io</p>
       </div>
 
-      <div className="header-right">
+      <div className={classes.headerRight}>
         <p>{time}</p>
       </div>
     </div>

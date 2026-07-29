@@ -1,7 +1,6 @@
-import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faX } from '@fortawesome/free-solid-svg-icons';
-import './index.css';
+import classes from './index.module.css';
 import ContentFile, { FileProps } from './ContentFile';
 
 export interface FileAppProps {
@@ -22,14 +21,14 @@ export default function FileApp({ title, content, onClose }: FileAppProps) {
   )
 
   return (
-    <div className="window">
-      <div className="window-header">
-        <p className="window-title">{title}</p>
-        <div className="window-x" onClick={onClose}>
-          <FontAwesomeIcon icon={faX} className="window-x-icon" />
+    <div className={classes.window}>
+      <div className={classes.windowHeader}>
+        <p className={classes.windowTitle}>{title}</p>
+        <div className={classes.windowX} onClick={onClose}>
+          <FontAwesomeIcon icon={faX} className={classes.windowXIcon} />
         </div>
       </div>
-      <div className="file-list">
+      <div className={classes.fileList}>
         {files}
       </div>
     </div>

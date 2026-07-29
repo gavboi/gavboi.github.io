@@ -11,7 +11,7 @@
   max-height: 4rem;
 }
 
-.header-image {
+.headerImage {
   width: 3rem;
   height: 3rem;
   border-radius: 50%;
@@ -21,7 +21,7 @@
     box-shadow 0.2s ease-in-out;
 }
 
-.header-image:hover {
+.headerImage:hover {
   transform: scale(1.1);
   box-shadow: 0 0 1rem 0 var(--color-outline);
 }

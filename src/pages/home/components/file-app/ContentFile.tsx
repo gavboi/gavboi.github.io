@@ -1,5 +1,6 @@
 import { IconDefinition, faQuestion } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import classes from './index.module.css';
 
 export interface FileProps {
   title: string;
@@ -14,16 +15,16 @@ export default function ContentFile(
   
   return (
     <div 
-      className="content-container" 
+      className={classes.contentContainer} 
       onClick={handleClick}
       title={detail}
     >
       <FontAwesomeIcon
         icon={image || faQuestion} 
-        className="icon" 
+        className={classes.icon} 
       />
       <p 
-        className="text"
+        className={classes.text}
       >{title}</p>
     </div>
   );

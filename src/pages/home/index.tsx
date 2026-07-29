@@ -1,18 +1,19 @@
-import Header from './components/header';
-import Item from './components/item/index.tsx';
-import NoteApp from './components/note-app/index.tsx';
-import FileApp from './components/file-app/index.tsx';
-import { useTheme } from '../../theme/ThemeProvider.tsx';
-import ContentReadMe from './components/note-app/ContentReadMe.js';
+import Header from './components/header'
+import Item from './components/item';
+import NoteApp from './components/note-app';
+import FileApp from './components/file-app';
+import { useTheme } from '../../theme/ThemeProvider';
+import ContentReadMe from './components/note-app/ContentReadMe';
 import { useState } from 'react';
-import './index.css';
-import { navigateTo } from '../../helpers/index.ts';
+import classes from './index.module.css';
+import { navigateTo } from '../../helpers';
 import { faDice } from '@fortawesome/free-solid-svg-icons';
+import { AppProps } from './types';
 
 export default function HomePage() {
   const { theme } = useTheme();
-  const [fileAppProps, setFileAppProps] = useState(null);
-  const [noteAppProps, setNoteAppProps] = useState(null);
+  const [fileAppProps, setFileAppProps] = useState<AppProps | null>(null);
+  const [noteAppProps, setNoteAppProps] = useState<AppProps | null>(null);
 
   const handleClickGames = () => {
     setFileAppProps({
@@ -42,10 +43,10 @@ export default function HomePage() {
   }
 
   return (
-    <div className={`bg ${theme}`}>
+    <div className={`bg ${classes.theme}`}>
       <Header />
 
-      <div className='content'>
+      <div className={classes.content}>
         {noteAppProps && <NoteApp
           {...noteAppProps}
         />}
@@ -54,9 +55,10 @@ export default function HomePage() {
           {...fileAppProps}
         />}
 
-        <div className="item-container">
-          <Item icon="folder" text="GitHub Projects" />
-          <Item icon="folder" text="Ideas" />
+
+        <div className={classes.itemContainer}>
+          <Item icon="folder" text="GitHub Projects" onClick={() => {}}/>
+          <Item icon="folder" text="Ideas" onClick={() => {}} />
           <Item icon="folder" text="Games" onClick={handleClickGames} />
           <Item icon="file" text="README" onClick={handleClickReadMe} />
           <Item icon="globe" text="Legacy Page" onClick={handleClickLegacy} />

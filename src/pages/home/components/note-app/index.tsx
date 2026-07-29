@@ -1,7 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faX } from '@fortawesome/free-solid-svg-icons';
-import './index.css';
+import classes from './index.module.css';
 
 export interface NoteAppProps {
   title: string;
@@ -11,14 +11,14 @@ export interface NoteAppProps {
 
 export default function NoteApp({ title, content, onClose }: NoteAppProps) {
   return (
-    <div className="window">
-      <div className="window-header">
-        <p className="window-title">{title}</p>
-        <div className="window-x" onClick={onClose}>
-          <FontAwesomeIcon icon={faX} className="window-x-icon" />
+    <div className={classes.window}>
+      <div className={classes.windowHeader}>
+        <p className={classes.windowTitle}>{title}</p>
+        <div className={classes.windowX} onClick={onClose}>
+          <FontAwesomeIcon icon={faX} className={classes.windowXIcon} />
         </div>
       </div>
-      <div className="text-content">{content}</div>
+      <div className={classes.textContent}>{content}</div>
     </div>
   );
 }

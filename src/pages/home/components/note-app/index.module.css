@@ -11,7 +11,7 @@
   box-shadow: 0 0 1rem 0 var(--color-outline);
 }
 
-.window-header {
+.windowHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -19,7 +19,7 @@
   color: var(--color-on-secondary);
 }
 
-.window-title {
+.windowTitle {
   font-size: 1.5rem;
   font-weight: bold;
   margin: 0;
@@ -29,7 +29,7 @@
   align-items: center;
 }
 
-.window-x {
+.windowX {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -40,41 +40,13 @@
   width: 3rem;
 }
 
-.window-x-icon {
+.windowXIcon {
   height: 2rem;
   width: 2rem;
 }
 
-.file-list {
-  flex: 1;
-  flex-direction: row;
-  padding: 3rem;
-  gap: 1rem;
-}
-
-.icon {
-  font-size: 3rem;
+.textContent {
+  font-size: 1rem;
+  padding: 1rem;
   color: var(--color-on-primary-container);
-}
-
-.text {
-  font-size: 1.25rem;
-  color: var(--color-on-primary-container);
-  margin: 0.5rem;
-}
-
-.content-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: top;
-  text-align: center;
-  padding: 1rem 1rem 0 1rem;
-  cursor: pointer;
-  width: 5rem;
-  height: 7rem;
-}
-
-.content-container:hover {
-  background-color: #ffffff20;
 }
