@@ -12,6 +12,16 @@ import StatsWindow from './components/stats-window';
 import SettingsWindow from './components/settings-window';
 import { LuckyDiceThemeProvider, useLuckyDiceTheme } from './theme';
 import useLuckyDiceStore from './components/store';
+import sfx_cmaj from './assets/sound/Cmaj.mp3';
+import sfx_cg from './assets/sound/cg.mp3';
+import sfx_c4 from './assets/sound/c4.mp3';
+import sfx_d from './assets/sound/d.mp3';
+import sfx_e from './assets/sound/e.mp3';
+import sfx_f from './assets/sound/f.mp3';
+import sfx_g from './assets/sound/g.mp3';
+import sfx_a from './assets/sound/a.mp3';
+import sfx_b from './assets/sound/b.mp3';
+import sfx_c5 from './assets/sound/c5.mp3';
 
 type AltScreen = 'achievements' | 'settings' | 'stats' | 'info';
 
@@ -43,6 +53,67 @@ function LuckyDicePageContent() {
   const [luckyNumber, setLuckyNumber] = useState<number>(1);
   const [lastThree, setLastThree] = useState<number[]>([]);
   const [pendingRolls, setPendingRolls] = useState<number[]>([]);
+
+  // sfx
+  const [hasInteracted, setHasInteracted] = useState(false);
+  const sfx_achievementRef = useRef<HTMLAudioElement | null>(null);
+  const sfx_buyRef = useRef<HTMLAudioElement | null>(null);
+  const sfx_streak1Ref = useRef<HTMLAudioElement | null>(null);
+  const sfx_streak2Ref = useRef<HTMLAudioElement | null>(null);
+  const sfx_streak3Ref = useRef<HTMLAudioElement | null>(null);
+  const sfx_streak4Ref = useRef<HTMLAudioElement | null>(null);
+  const sfx_streak5Ref = useRef<HTMLAudioElement | null>(null);
+  const sfx_streak6Ref = useRef<HTMLAudioElement | null>(null);
+  const sfx_streak7Ref = useRef<HTMLAudioElement | null>(null);
+  const sfx_streak8Ref = useRef<HTMLAudioElement | null>(null);
+
+  /**
+   * Load sound files once on mount.
+   */
+  useEffect(() => {
+    sfx_achievementRef.current = new Audio(sfx_cmaj);
+    sfx_buyRef.current = new Audio(sfx_cg);
+    sfx_streak1Ref.current = new Audio(sfx_c4);
+    sfx_streak2Ref.current = new Audio(sfx_d);
+    sfx_streak3Ref.current = new Audio(sfx_e);
+    sfx_streak4Ref.current = new Audio(sfx_f);
+    sfx_streak5Ref.current = new Audio(sfx_g);
+    sfx_streak6Ref.current = new Audio(sfx_a);
+    sfx_streak7Ref.current = new Audio(sfx_b);
+    sfx_streak8Ref.current = new Audio(sfx_c5);
+  }, []);
+
+  /**
+   * Plays a sound effect based on the current streak count.
+   * 
+   * @param streakCount Current streak count
+   */
+  const playStreakSound = useCallback((streakCount: number) => {
+    if (!hasInteracted) return;
+    if (streakCount <= 0) return;
+
+    const soundMap: { [key: number]: HTMLAudioElement | null } = {
+      1: sfx_streak1Ref.current,
+      2: sfx_streak2Ref.current,
+      3: sfx_streak3Ref.current,
+      4: sfx_streak4Ref.current,
+      5: sfx_streak5Ref.current,
+      6: sfx_streak6Ref.current,
+      7: sfx_streak7Ref.current,
+      8: sfx_streak8Ref.current,
+    };
+
+    const soundToPlay = soundMap[streakCount] || sfx_streak8Ref.current;
+    soundToPlay?.play().catch(() => {});
+  }, [hasInteracted]);
+
+  /**
+   * Play sound effects as soon as it's allowed (user interacts with the page).
+   */
+  useEffect(() => {
+    if (!hasInteracted) return;
+    // music TODO
+  }, [hasInteracted]);
   
   const addNotice = useCallback((notice: string) => {
     console.log(`Notice: ${notice}`);
@@ -63,6 +134,7 @@ function LuckyDicePageContent() {
         [achievement]: true,
       }));
       addNotice(`Achievement Unlocked: ${ACHIEVEMENTS[achievement].name}`);
+      sfx_achievementRef.current?.play().catch(() => {});
     }
   }, [addNotice, setAchievementsUnlocked]);
 
@@ -118,6 +190,7 @@ function LuckyDicePageContent() {
         nextPoints += pointsGained;
         nextMaxStreak = Math.max(nextMaxStreak, nextStreak);
         noticesToAdd.push(`You rolled a ${roll}! (+${pointsGained})`);
+        playStreakSound(nextStreak);
       } else {
         const nextStreak = Math.min(nextCurrentStreak, 0) - 1;
 
@@ -192,7 +265,7 @@ function LuckyDicePageContent() {
 
     // Clear queue
     setPendingRolls([]);
-  }, [addNotice, currentStreak, lastThree, luckyRollCount, maxStreak, minStreak, pendingRolls, points, rollCounts, luckyNumber, upgradeCount, setAchievementUnlocked]);
+  }, [addNotice, playStreakSound, currentStreak, lastThree, luckyRollCount, maxStreak, minStreak, pendingRolls, points, rollCounts, luckyNumber, upgradeCount, setAchievementUnlocked]);
 
   /**
    * Checks if the specified upgrade is unlocked based on achievements and returns a boolean.
@@ -232,6 +305,7 @@ function LuckyDicePageContent() {
     const cost = UPGRADES[key].costs[upgradeCount[key]];
     if (points >= cost) {
       setPoints((prevPoints) => prevPoints - cost);
+      sfx_buyRef.current?.play().catch(() => {});
       const newUpgradeCount = { ...upgradeCount };
       newUpgradeCount[key] = upgradeCount[key] + 1;
       // Check achievements
@@ -326,6 +400,7 @@ function LuckyDicePageContent() {
    * If the user does not click for 2 minutes, unlocks the "wait-2-mins" achievement.
    */
   const handleClickAnywhere = () => {
+    setHasInteracted(true);
     if (idleTimeoutRef.current) {
       clearTimeout(idleTimeoutRef.current);
     }
