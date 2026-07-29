@@ -592,7 +592,7 @@ After testing, depending on streaks early on feels rough - often you can only af
 
 This should result in something similar to [Idea 3](#idea-3-assume-other-purchased-upgrades), but switching between highest and lowest EPPM2 at different points in the process would hopefully allow artificially controlling when to introduce upgrades with a larger effect on the game later. 
 
-#### Idea 5: Upgrades Leading to Most Consistent Progression First
+#### Idea 5: Upgrades Leading to Most Consistent (?) Progression First
 1. Start all upgrades at level 0
 2. Calculate EEPM1 (approximation of mean) and EPPM2 (approximation of median) for each upgrade path 1 level up around currently purchased upgrades
 3. Subtract medians from means, select lowest, price it at 1 minute of *current* EPPM2 and assume it is purchased in all further calculations
@@ -600,3 +600,17 @@ This should result in something similar to [Idea 3](#idea-3-assume-other-purchas
 
 #### Idea 6: Return to Attempt 2
 Like [attempt 2](#upgrade-structure-attempt-2), select an order that I feel fits how the game should be played, then price using EPPM2. Perhaps to ease the later parts of the game, use 0.5 probability threshold.
+
+#### Idea 7: Even Progression
+The intention would be to buy all upgrades to level 1 in some order, then all to level 2, etc. 
+
+For each upgrade tier `t`:
+- Calculate EPPM2 with all upgrades at previous tier `t-1`
+- Calculate EPPM2 for each upgrade (all at `t-1` except focused upgrade at `t`) to determine how strong it is
+- Price weakest EPPM2 `t` at all `t-1` EPPM2
+- Price strongest EPPM2 `t` at all `t-1` EPPM2 times some coefficient (1.5? Dynamic depending on how many other upgrades are available?)
+- Distribute others evenly between highest and lowest
+
+| Good | Bad |
+| :--- | :--- |
+| Very flexible upgrade choices, especially early | Strange progression? Idk it feels weird |

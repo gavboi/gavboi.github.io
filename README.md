@@ -3,25 +3,18 @@ A Portfolio of sorts for my projects.
 
 
 
-## TEMP
+## TEMP TODO
 
-### Dice Game
-- cost separation for easy/hard
-####
-- notice shows change
-- 15 lucky reduce to only 10
-- winner only purchaseable in hard mode
-- classic and savvy shopper notice duplicated
-####
-- music / SFX
-####
-- upgrade balancing
-####
-- cleanup
+### Lucky Dice
 
 #### Revisit List
 - auto-roll upgrade (recharging) / upgrade list scrollable
-- clicking clear/restart closes alt screen to make change clearer
+- music
+  - toggle
+  - sfx toggle
+- cleanup
+    - move font out of public into src/assets
+- allow manually changing die style after unlock
 
 ### Other
-- recipes?
+- Fill in existing clickables
