@@ -19,6 +19,7 @@
   cursor: pointer;
   width: 5rem;
   height: 7rem;
+  transition: background-color 0s;
 }
 
 .container:hover {

@@ -1,41 +1,22 @@
 import Header from './components/header'
 import Item from './components/item';
-import NoteApp from './components/note-app';
-import FileApp from './components/file-app';
 import { useTheme } from '../../theme/ThemeProvider';
-import ContentReadMe from './components/note-app/ContentReadMe';
-import { useState } from 'react';
 import classes from './index.module.css';
 import { navigateTo } from '../../helpers';
-import { faDice } from '@fortawesome/free-solid-svg-icons';
-import { AppProps } from './types';
+import { useWindowNav, WindowNavProvider } from './WindowNavProvider';
+import NoteAppReadMe from './components/window/NoteAppReadMe';
+import FileAppGames from './components/window/FileAppGames';
 
-export default function HomePage() {
+function HomePageContent() {
   const { theme } = useTheme();
-  const [fileAppProps, setFileAppProps] = useState<AppProps | null>(null);
-  const [noteAppProps, setNoteAppProps] = useState<AppProps | null>(null);
+  const { currentWindow, pushWindow } = useWindowNav();
 
   const handleClickGames = () => {
-    setFileAppProps({
-      title: "Games",
-      content: [
-        {
-          title: "Lucky Dice",
-          detail: 'A clicker/upgrade game inspired by "Unfair Flips"',
-          image: faDice,
-          handleClick: () => {navigateTo("lucky-dice")}
-        }
-      ],
-      onClose: () => setFileAppProps(null)
-    })
+    pushWindow(<FileAppGames />);
   }
 
   const handleClickReadMe = () => {
-    setNoteAppProps({
-      title: "README",
-      content: <ContentReadMe />,
-      onClose: () => setNoteAppProps(null)
-    });
+    pushWindow(<NoteAppReadMe />);
   };
 
   const handleClickLegacy = () => {
@@ -43,27 +24,29 @@ export default function HomePage() {
   }
 
   return (
-    <div className={`bg ${classes.theme}`}>
+    <div className={`${classes.bg} ${classes.theme}`}>
       <Header />
 
       <div className={classes.content}>
-        {noteAppProps && <NoteApp
-          {...noteAppProps}
-        />}
-
-        {fileAppProps && <FileApp
-          {...fileAppProps}
-        />}
-
+        {currentWindow}
 
         <div className={classes.itemContainer}>
-          <Item icon="folder" text="GitHub Projects" onClick={() => {}}/>
-          <Item icon="folder" text="Ideas" onClick={() => {}} />
-          <Item icon="folder" text="Games" onClick={handleClickGames} />
-          <Item icon="file" text="README" onClick={handleClickReadMe} />
-          <Item icon="globe" text="Legacy Page" onClick={handleClickLegacy} />
+          <Item text="GitHub Projects" iconShortcut="folder" onClick={() => {}}/>
+          <Item text="Ideas" iconShortcut="folder" onClick={() => {}} />
+          <Item text="Games" iconShortcut="folder" onClick={handleClickGames} />
+          <Item text="README" iconShortcut="file"  onClick={handleClickReadMe} />
+          <Item text="Legacy Page" iconShortcut="globe" onClick={handleClickLegacy} />
         </div>
       </div>
     </div>
+  );
+}
+
+export default function HomePage() {
+
+  return (
+    <WindowNavProvider>
+      <HomePageContent />
+    </WindowNavProvider>
   );
 }

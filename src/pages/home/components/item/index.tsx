@@ -1,14 +1,15 @@
-import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFile, faFolder, faGlobe } from '@fortawesome/free-solid-svg-icons';
+import { faFile, faFolder, faGlobe, IconDefinition, faQuestion } from '@fortawesome/free-solid-svg-icons';
 import classes from './index.module.css';
 
 type ItemIcon = 'file' | 'folder' | 'globe';
 
 interface ItemProps {
-  icon: ItemIcon;
   text: string;
   onClick: () => void;
+  detail?: string;
+  iconShortcut?: ItemIcon;
+  icon?: IconDefinition;
 }
 
 const iconMap = {
@@ -17,11 +18,22 @@ const iconMap = {
   globe: faGlobe
 };
 
-export default function Item({ icon, text, onClick }: ItemProps) {
+export default function Item({
+  text, onClick, detail, iconShortcut, icon = faQuestion
+}: ItemProps) {
   return (
-    <div className={classes.container} onClick={onClick}>
-      <FontAwesomeIcon icon={iconMap[icon]} className={classes.icon} />
-      <p className={classes.text}>{text}</p>
+    <div 
+      className={classes.container} 
+      onClick={onClick}
+      title={detail}
+    >
+      <FontAwesomeIcon 
+        icon={iconShortcut ? iconMap[iconShortcut] : icon} 
+        className={classes.icon} 
+      />
+      <p 
+        className={classes.text}
+      >{text}</p>
     </div>
   );
 }

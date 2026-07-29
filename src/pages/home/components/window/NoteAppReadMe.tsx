@@ -1,6 +1,9 @@
-export default function ContentReadMe() {
+import Window from '.';
+import classes from './index.module.css';
+
+function Content() {
   return (
-    <div>
+    <div className={classes.text}>
       <p>This site was made by me, written in React, and hosted on GitHub Pages.</p>
       <p>I proudly wrote every part of this myself from scratch, without generative AI
         (although I did use references at times).
@@ -12,4 +15,13 @@ export default function ContentReadMe() {
       </p>
     </div>
   );
+}
+
+export default function NoteAppReadMe() {
+  return (
+    <Window
+      title="README"
+      content={<Content />}
+    />
+  )
 }

@@ -45,8 +45,15 @@
   width: 2rem;
 }
 
-.textContent {
+.text {
   font-size: 1rem;
   padding: 1rem;
   color: var(--color-on-primary-container);
+}
+
+.fileList {
+  flex: 1;
+  flex-direction: row;
+  padding: 3rem;
+  gap: 1rem;
 }

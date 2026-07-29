@@ -6,7 +6,7 @@ export interface FileProps {
   title: string;
   detail: string;
   image?: IconDefinition;
-  handleClick: () => {};
+  handleClick: () => void;
 }
 
 export default function ContentFile(
