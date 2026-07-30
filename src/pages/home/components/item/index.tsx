@@ -2,13 +2,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFile, faFolder, faGlobe, IconDefinition, faQuestion } from '@fortawesome/free-solid-svg-icons';
 import classes from './index.module.css';
 
-type ItemIcon = 'file' | 'folder' | 'globe';
-
 interface ItemProps {
   text: string;
   onClick: () => void;
   detail?: string;
-  iconShortcut?: ItemIcon;
+  iconShortcut?: 'file' | 'folder' | 'globe';
   icon?: IconDefinition;
 }
 

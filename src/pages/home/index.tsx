@@ -6,10 +6,20 @@ import { navigateTo } from '../../helpers';
 import { useWindowNav, WindowNavProvider } from './WindowNavProvider';
 import NoteAppReadMe from './components/window/NoteAppReadMe';
 import FileAppGames from './components/window/FileAppGames';
+import FileAppGitProj from './components/window/FileAppGitProj';
+import FileAppIdeas from './components/window/FileAppIdeas';
 
 function HomePageContent() {
   const { theme } = useTheme();
   const { currentWindow, pushWindow } = useWindowNav();
+
+  const handleClickGitProj = () => {
+    pushWindow(<FileAppGitProj />);
+  }
+
+  const handleClickIdeas = () => {
+    pushWindow(<FileAppIdeas />);
+  }
 
   const handleClickGames = () => {
     pushWindow(<FileAppGames />);
@@ -31,8 +41,8 @@ function HomePageContent() {
         {currentWindow}
 
         <div className={classes.itemContainer}>
-          <Item text="GitHub Projects" iconShortcut="folder" onClick={() => {}}/>
-          <Item text="Ideas" iconShortcut="folder" onClick={() => {}} />
+          <Item text="GitHub Projects" iconShortcut="folder" onClick={handleClickGitProj} />
+          <Item text="Ideas" iconShortcut="folder" onClick={handleClickIdeas} />
           <Item text="Games" iconShortcut="folder" onClick={handleClickGames} />
           <Item text="README" iconShortcut="file"  onClick={handleClickReadMe} />
           <Item text="Legacy Page" iconShortcut="globe" onClick={handleClickLegacy} />
