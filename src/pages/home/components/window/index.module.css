@@ -51,8 +51,17 @@
   color: var(--color-on-primary-container);
 }
 
+.monospace {
+  font-family: monospace;
+  white-space: pre-wrap;
+  font-size: 1rem;
+  padding: 1rem;
+  color: var(--color-on-primary-container);
+}
+
 .fileList {
   display: flex;
+  flex-wrap: wrap;
   flex-direction: row;
   padding: 3rem;
   gap: 1rem;

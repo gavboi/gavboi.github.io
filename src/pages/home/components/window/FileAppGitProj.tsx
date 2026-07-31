@@ -1,6 +1,6 @@
 import FileApp from "./FileApp";
 import { 
-  faMoneyCheckDollar, faTableCells, faGridVertical,
+  faDisplay, faMoneyCheckDollar, faTableCells, faGridVertical,
   faBullhorn, faCommentNodes, faWindowRestore, faChartLine,
   faCube, faSquareBinary, faComment, faEnvelopeOpenText,
   faGifts, faCartPlus
@@ -10,6 +10,7 @@ import { useWindowNav } from "../../WindowNavProvider";
 import Window from "."
 import NoteAppGitReadMe from "./NoteAppGitReadMe";
 import classes from './index.module.css';
+import NoteAppGitSudokuSolver from "./NoteAppGitSudoku";
 
 /**
  * TEMP
@@ -34,6 +35,12 @@ export default function FileAppGitProj() {
           onClick={() => pushWindow(<NoteAppGitReadMe />)}
         />,
         <Item
+          text="This Website"
+          detail=""
+          icon={faDisplay}
+          onClick={() => pushWindow(BlankWindow("This Website"))}
+        />,
+        <Item
           text="BTD6 Script"
           detail=""
           icon={faMoneyCheckDollar}
@@ -43,7 +50,7 @@ export default function FileAppGitProj() {
           text="Sudoku Solver"
           detail=""
           icon={faTableCells}
-          onClick={() => pushWindow(BlankWindow("Sudoku Solver"))}
+          onClick={() => pushWindow(<NoteAppGitSudokuSolver />)}
         />,
         <Item
           text="Wordle Solver"
