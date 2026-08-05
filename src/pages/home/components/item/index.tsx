@@ -40,17 +40,18 @@ export default function Item({
 }
 
 interface NoteAppInfoProps {
-  status: "started" | "in progress" | "nearly finished" | "complete";
-  created: string;
+  status: "idea" |"started" | "in progress" | "nearly finished" | "complete";
+  created?: string;
   tags: ItemTags[];
-  repoName: string;
-  repoUrl: string;
+  repoName?: string;
+  repoUrl?: string;
 }
 
 export function NoteAppInfo({
   status, created, tags, repoName, repoUrl
 }: NoteAppInfoProps) {
-  const displayStatus = status === "started" ? "Outlined" 
+  const displayStatus = status === "idea" ? "Not Started"
+    : status === "started" ? "Outlined" 
     : status === "in progress" ? "WIP" 
     : status === "nearly finished" ? "Needs Polishing" 
     : "Complete";
@@ -58,10 +59,10 @@ export function NoteAppInfo({
   return (
     <div>
       <p>
-        <b>Repo:</b> <a href={repoUrl} target="_blank" rel="noopener noreferrer">{repoName}</a><br />
+        {repoName && repoUrl && <><b>Repo:</b> <a href={repoUrl} target="_blank" rel="noopener noreferrer">{repoName}</a><br /></>}
         <b>Tags:</b> {tags.join(", ")}<br />
-        <b>Created:</b> {created}<br />
-        <b>Status:</b> {status}
+        {created && <><b>Created:</b> {created}<br /></>}
+        <b>Status:</b> {displayStatus}
       </p>
     </div>
   );
