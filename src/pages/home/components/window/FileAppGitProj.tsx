@@ -11,6 +11,19 @@ import Window from "."
 import NoteAppGitReadMe from "./NoteAppGitReadMe";
 import classes from './index.module.css';
 import NoteAppGitSudokuSolver from "./NoteAppGitSudoku";
+import NoteAppGitWebsite from "./NoteAppGitWebsite";
+import NoteAppGitWordleSolver from "./NoteAppGitWordleSolver";
+import NoteAppGitVoiceCommand from "./NoteAppGitVoiceCommand";
+import NoteAppGitConnectionsTogether from "./NoteAppGitConnectionsTogether";
+import NoteAppGitWindowTweaks from "./NoteAppGitWindowTweaks";
+import NoteAppGitDesmosPlotter from "./NoteAppGitDesmosPlotter";
+import NoteAppGitMinecraftAutofish from "./NoteAppGitMinecraftAutofish";
+import NoteAppGitSecretSanta from "./NoteAppGitSecretSanta";
+import NoteAppGitBtd6Script from "./NoteAppGitBtd6Script";
+import NoteAppGitLetterAssembler from "./NoteAppGitLetterAssembler";
+import NoteAppGitHomePos from "./NoteAppGitHomePos";
+import NoteAppGitPicRgb from "./NoteAppGitPicRgb";
+import NoteAppGitDiscordHomeBot from "./NoteAppGitDiscordHomeBot";
 
 /**
  * TEMP
@@ -34,89 +47,103 @@ export default function FileAppGitProj() {
           iconShortcut="file"
           onClick={() => pushWindow(<NoteAppGitReadMe />)}
         />,
+        // 2026 Mar 15
+        <Item
+          text="Home POS"
+          detail=""
+          icon={faCartPlus}
+          onClick={() => pushWindow(<NoteAppGitHomePos />)}
+        />,
+        // 2026 Jan 26
         <Item
           text="This Website"
           detail=""
           icon={faDisplay}
-          onClick={() => pushWindow(BlankWindow("This Website"))}
+          onClick={() => pushWindow(<NoteAppGitWebsite />)}
         />,
+        // 2020 Dec 31 / 2022 Dec 9 / 2024 Sept 12 / 2024 Sept 14
         <Item
-          text="BTD6 Script"
+          text="Discord Home Bot"
           detail=""
-          icon={faMoneyCheckDollar}
-          onClick={() => pushWindow(BlankWindow("BTD6 Script"))}
+          icon={faComment}
+          onClick={() => pushWindow(<NoteAppGitDiscordHomeBot />)}
         />,
+        // 2024 Aug 23
+        <Item
+          text="Connections Together"
+          detail=""
+          icon={faCommentNodes}
+          onClick={() => pushWindow(<NoteAppGitConnectionsTogether />)}
+        />,
+        // 2022 Apr 26 / 2024 Jun 20
+        <Item
+          text="Cover Letter Assembler"
+          detail=""
+          icon={faEnvelopeOpenText}
+          onClick={() => pushWindow(<NoteAppGitLetterAssembler />)}
+        />,
+        // 2024 May 29
+        <Item
+          text="Wordle Solver"
+          detail=""
+          icon={faGridVertical}
+          onClick={() => pushWindow(<NoteAppGitWordleSolver />)}
+        />,
+        // 2024 May 22
+        <Item
+          text="Voice Command"
+          detail=""
+          icon={faBullhorn}
+          onClick={() => pushWindow(<NoteAppGitVoiceCommand />)}
+        />,
+        // 2024 May 13
         <Item
           text="Sudoku Solver"
           detail=""
           icon={faTableCells}
           onClick={() => pushWindow(<NoteAppGitSudokuSolver />)}
         />,
+        // 2023 Dec 7
         <Item
-          text="Wordle Solver"
+          text="Secret Santa's Helper"
           detail=""
-          icon={faGridVertical}
-          onClick={() => pushWindow(BlankWindow("Wordle Solver"))}
+          icon={faGifts}
+          onClick={() => pushWindow(<NoteAppGitSecretSanta />)}
         />,
+        // 2023 Jan 16
         <Item
-          text="Voice Command"
+          text="BTD6 Script"
           detail=""
-          icon={faBullhorn}
-          onClick={() => pushWindow(BlankWindow("Voice Command"))}
+          icon={faMoneyCheckDollar}
+          onClick={() => pushWindow(<NoteAppGitBtd6Script />)}
         />,
-        <Item
-          text="Connections Together"
-          detail=""
-          icon={faCommentNodes}
-          onClick={() => pushWindow(BlankWindow("Connections Together"))}
-        />,
-        <Item
-          text="Window Tweaks"
-          detail=""
-          icon={faWindowRestore}
-          onClick={() => pushWindow(BlankWindow("Window Tweaks"))}
-        />,
-        <Item
-          text="Desmos Plotter"
-          detail=""
-          icon={faChartLine}
-          onClick={() => pushWindow(BlankWindow("Desmos Plotter"))}
-        />,
-        <Item
-          text="Minecraft Autofish"
-          detail=""
-          icon={faCube}
-          onClick={() => pushWindow(BlankWindow("Minecraft Autofish"))}
-        />,
+        // 2022 Mar 22
         <Item
           text="Pic To RGB"
           detail=""
           icon={faSquareBinary}
-          onClick={() => pushWindow(BlankWindow("Pic To RGB"))}
+          onClick={() => pushWindow(<NoteAppGitPicRgb />)}
         />,
+        // 2022 Mar 22
         <Item
-          text="Discord Mod Bot"
+          text="Window Tweaks"
           detail=""
-          icon={faComment}
-          onClick={() => pushWindow(BlankWindow("Discord Mod Bot"))}
+          icon={faWindowRestore}
+          onClick={() => pushWindow(<NoteAppGitWindowTweaks />)}
         />,
+        // 2021 Jan 6
         <Item
-          text="Cover Letter Assembler (WIP)"
+          text="Minecraft Autofish"
           detail=""
-          icon={faEnvelopeOpenText}
-          onClick={() => pushWindow(BlankWindow("(WIP) Cover Letter Assembler"))}
+          icon={faCube}
+          onClick={() => pushWindow(<NoteAppGitMinecraftAutofish />)}
         />,
+        // 2020 Dec 31
         <Item
-          text="Secret Santa's Helper (WIP)"
+          text="Desmos Plotter"
           detail=""
-          icon={faGifts}
-          onClick={() => pushWindow(BlankWindow("(WIP) Secret Santa's Helper"))}
-        />,
-        <Item
-          text="Home POS (WIP)"
-          detail=""
-          icon={faCartPlus}
-          onClick={() => pushWindow(BlankWindow("(WIP) Home POS"))}
+          icon={faChartLine}
+          onClick={() => pushWindow(<NoteAppGitDesmosPlotter />)}
         />,
       ]}
     />

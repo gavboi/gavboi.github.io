@@ -7,7 +7,7 @@ function Content() {
     <div className={classes.text}>
       <NoteAppInfo
         status="complete"
-        created={"2024"}
+        created={[new Date("2024-05-13")]}
         tags={["C", "cli", "game script", "no AI"]}
         repoName="sudoku-solver"
         repoUrl="https://github.com/gavboi/sudoku-solver"

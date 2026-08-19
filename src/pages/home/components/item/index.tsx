@@ -3,7 +3,7 @@ import { faFile, faFolder, faGlobe, IconDefinition, faQuestion } from '@fortawes
 import classes from './index.module.css';
 
 type ItemTags = "game" | "cli" | "C" | "AutoHotKey" | "Python" | "tool" | "game script" | "no AI"
-  | "Desmos" | "React" | "JS/TS";
+  | "Desmos" | "React" | "JS/TS" | "Java";
 
 interface ItemProps {
   text: string;
@@ -41,7 +41,7 @@ export default function Item({
 
 interface NoteAppInfoProps {
   status: "idea" |"started" | "in progress" | "nearly finished" | "complete";
-  created?: string;
+  created?: Date[];
   tags: ItemTags[];
   repoName?: string;
   repoUrl?: string;
@@ -55,13 +55,19 @@ export function NoteAppInfo({
     : status === "in progress" ? "WIP" 
     : status === "nearly finished" ? "Needs Polishing" 
     : "Complete";
+  const displayDate = created && created.length > 0 ? 
+    created.map(date => date.toLocaleDateString(
+        undefined,
+        { year: 'numeric', month: 'long' }
+      )).join(", ") 
+    : undefined;
 
   return (
     <div>
       <p>
         {repoName && repoUrl && <><b>Repo:</b> <a href={repoUrl} target="_blank" rel="noopener noreferrer">{repoName}</a><br /></>}
         <b>Tags:</b> {tags.join(", ")}<br />
-        {created && <><b>Created:</b> {created}<br /></>}
+        {displayDate && <><b>Created:</b> {displayDate}<br /></>}
         <b>Status:</b> {displayStatus}
       </p>
     </div>

@@ -13,6 +13,9 @@ function Content() {
         If you prefer to view them here, I have given descriptions and examples for each project
         written in a less technical way. 
       </p>
+      <p>
+        Ordered as most recent projects first (by original creation date or rewrite date).
+      </p>
     </div>
   );
 }
