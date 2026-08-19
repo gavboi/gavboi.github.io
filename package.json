@@ -1,7 +1,7 @@
 {
-  "name": "my-app",
+  "name": "my-site",
   "homepage": "https://gavboi.github.io",
-  "version": "2.3.1",
+  "version": "3.0.0",
   "private": true,
   "dependencies": {
     "@fortawesome/free-solid-svg-icons": "^7.1.0",
