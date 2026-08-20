@@ -1,0 +1,12 @@
+{
+  "extends": [
+    "react-app",
+    "react-app/jest",
+    "plugin:prettier/recommended"
+  ],
+  "ignorePatterns": [
+    "node_modules/",
+    "build/",
+    "src/pages/legacy/"
+  ]
+}
