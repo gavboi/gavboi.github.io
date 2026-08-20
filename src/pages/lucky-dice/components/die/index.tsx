@@ -1,38 +1,41 @@
-import { useEffect, useRef, useState } from 'react';
-import classes from './index.module.css';
-import { randomFromArray } from '../../../../helpers';
-import { AchievementName, DieStyle } from '../../types';
-import Pips from './pips';
+import { useEffect, useRef, useState } from "react";
+import classes from "./index.module.css";
+import { randomFromArray } from "../../../../helpers";
+import { AchievementName, DieStyle } from "../../types";
+import Pips from "./pips";
 
 interface DieProps {
   rollTimeMs?: number;
   faces?: number[];
   design: DieStyle;
   usesPips: boolean;
-  handleResult: (arg0: number) => void; 
+  handleResult: (arg0: number) => void;
   onClick: () => void;
   unlockAchievement: (name: AchievementName) => void;
 }
 
 export default function Die({
-  rollTimeMs = 2000, 
-  faces = [1, 2, 3, 4, 5, 6], 
-  design, 
-  usesPips, 
-  handleResult, 
+  rollTimeMs = 2000,
+  faces = [1, 2, 3, 4, 5, 6],
+  design,
+  usesPips,
+  handleResult,
   onClick,
-  unlockAchievement
+  unlockAchievement,
 }: DieProps) {
-  const [rollModifierClass, setRollModifierClass] = useState<string | null>(null);
-  const [value, setValue] = useState<number | '?'>('?');
+  const [rollModifierClass, setRollModifierClass] = useState<string | null>(
+    null
+  );
+  const [value, setValue] = useState<number | "?">("?");
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const designClass = design === 'white' ? classes.whiteDie 
-    : design === 'silver' ? classes.silverDie 
-    : classes.goldDie;
-  const pipStyle = design === 'white' 
-    ? 'solid'
-    : 'shadow';
+  const designClass =
+    design === "white"
+      ? classes.whiteDie
+      : design === "silver"
+        ? classes.silverDie
+        : classes.goldDie;
+  const pipStyle = design === "white" ? "solid" : "shadow";
 
   useEffect(() => {
     return () => {
@@ -61,7 +64,7 @@ export default function Die({
     setValue(result);
     handleResult(result);
     setRollModifierClass(null);
-  }
+  };
 
   const handleStartRoll = () => {
     if (rollModifierClass === null) {
@@ -71,32 +74,35 @@ export default function Die({
         setValue(randomFromArray(faces));
       }, 100);
     } else {
-      unlockAchievement('roll-on-roll');
+      unlockAchievement("roll-on-roll");
     }
-  }
+  };
 
   return (
-    <div className={`${rollModifierClass ? classes.shakeHorizontal : ''}`}>
-    <div className={`${rollModifierClass ? classes.shakeVertical : ''}`}>
-      <div 
-        className={
-          `${classes.box} ` + 
-          `${rollModifierClass 
-            ? rollModifierClass 
-            : classes.pointer} ` +
-          `${designClass}`
-        } 
-        onClick={() => {
-          handleStartRoll();
-          onClick();
-        }}
-      >
-        {usesPips
-          ? <Pips value={value === '?' ? 0 : value} isExtended={faces.length > 9} pipStyle={pipStyle}/>
-          : <p className={classes.number}>{value}</p>
-        }
+    <div className={`${rollModifierClass ? classes.shakeHorizontal : ""}`}>
+      <div className={`${rollModifierClass ? classes.shakeVertical : ""}`}>
+        <div
+          className={
+            `${classes.box} ` +
+            `${rollModifierClass ? rollModifierClass : classes.pointer} ` +
+            `${designClass}`
+          }
+          onClick={() => {
+            handleStartRoll();
+            onClick();
+          }}
+        >
+          {usesPips ? (
+            <Pips
+              value={value === "?" ? 0 : value}
+              isExtended={faces.length > 9}
+              pipStyle={pipStyle}
+            />
+          ) : (
+            <p className={classes.number}>{value}</p>
+          )}
+        </div>
       </div>
     </div>
-    </div>
-  )
+  );
 }

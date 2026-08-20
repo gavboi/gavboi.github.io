@@ -1,15 +1,23 @@
 import FileApp from "./FileApp";
-import { 
-  faDisplay, faMoneyCheckDollar, faTableCells, faGridVertical,
-  faBullhorn, faCommentNodes, faWindowRestore, faChartLine,
-  faCube, faSquareBinary, faComment, faEnvelopeOpenText,
-  faGifts, faCartPlus
-} from '@fortawesome/free-solid-svg-icons';
+import {
+  faDisplay,
+  faMoneyCheckDollar,
+  faTableCells,
+  faGridVertical,
+  faBullhorn,
+  faCommentNodes,
+  faWindowRestore,
+  faChartLine,
+  faCube,
+  faSquareBinary,
+  faComment,
+  faEnvelopeOpenText,
+  faGifts,
+  faCartPlus,
+} from "@fortawesome/free-solid-svg-icons";
 import Item from "../item";
 import { useWindowNav } from "../../WindowNavProvider";
-import Window from "."
 import NoteAppGitReadMe from "./NoteAppGitReadMe";
-import classes from './index.module.css';
 import NoteAppGitSudokuSolver from "./NoteAppGitSudoku";
 import NoteAppGitWebsite from "./NoteAppGitWebsite";
 import NoteAppGitWordleSolver from "./NoteAppGitWordleSolver";
@@ -24,15 +32,6 @@ import NoteAppGitLetterAssembler from "./NoteAppGitLetterAssembler";
 import NoteAppGitHomePos from "./NoteAppGitHomePos";
 import NoteAppGitPicRgb from "./NoteAppGitPicRgb";
 import NoteAppGitDiscordHomeBot from "./NoteAppGitDiscordHomeBot";
-
-/**
- * TEMP
- */
-function BlankWindow(title: string) {
-  return (
-    <Window title={title} content={<p className={classes.text} >Details coming soon!</p>}/>
-  )
-}
 
 export default function FileAppGitProj() {
   const { pushWindow } = useWindowNav();
@@ -147,5 +146,5 @@ export default function FileAppGitProj() {
         />,
       ]}
     />
-  )
+  );
 }

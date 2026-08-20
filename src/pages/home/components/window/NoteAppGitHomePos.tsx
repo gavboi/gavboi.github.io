@@ -1,6 +1,6 @@
-import Window from '.';
-import { NoteAppInfo } from '../item';
-import classes from './index.module.css';
+import Window from ".";
+import { NoteAppInfo } from "../item";
+import classes from "./index.module.css";
 
 function Content() {
   return (
@@ -13,12 +13,12 @@ function Content() {
         repoUrl="https://github.com/gavboi/home-inventory"
       />
       <p>
-        Interface and database for a home point-of-sale system. Focuses on 
+        Interface and database for a home point-of-sale system. Focuses on
         inventory management and easy interfacing.
       </p>
-      <p><b>
-        Currently privated as it is not yet complete enough to be used.
-      </b></p>
+      <p>
+        <b>Currently privated as it is not yet complete enough to be used.</b>
+      </p>
       {/*<h2>Usage</h2>
       <p>
         INSTR
@@ -32,10 +32,5 @@ function Content() {
 }
 
 export default function NoteAppGitHomePos() {
-  return (
-    <Window
-      title="Home POS"
-      content={<Content />}
-    />
-  )
+  return <Window title="Home POS" content={<Content />} />;
 }

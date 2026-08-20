@@ -1,7 +1,7 @@
-import { EASY_MODE_FACE_COUNT, HARD_MODE_FACE_COUNT } from '../../constants';
-import { useLuckyDiceTheme } from '../../theme';
-import Histogram from '../histogram';
-import classes from './index.module.css';
+import { EASY_MODE_FACE_COUNT, HARD_MODE_FACE_COUNT } from "../../constants";
+import { useLuckyDiceTheme } from "../../theme";
+import Histogram from "../histogram";
+import classes from "./index.module.css";
 
 interface StatsWindowProps {
   rollCounts: number[];
@@ -18,27 +18,26 @@ export default function StatsWindow({
   currentStreak,
   maxStreak,
   minStreak,
-  isHardMode
+  isHardMode,
 }: StatsWindowProps) {
   const { themeStyle } = useLuckyDiceTheme();
-  
+
   return (
     <div className={classes.root} style={themeStyle}>
       <p className={classes.text}>
         Times a lucky number was rolled: {luckyRollCount}
       </p>
-      <p className={classes.text}>
-        Current streak: {currentStreak}
-      </p>
-      <p className={classes.text}>
-        Most lucky numbers in a row: {maxStreak}
-      </p>
+      <p className={classes.text}>Current streak: {currentStreak}</p>
+      <p className={classes.text}>Most lucky numbers in a row: {maxStreak}</p>
       <p className={classes.text}>
         Most non-lucky numbers in a row: {-minStreak}
       </p>
       <div className={classes.histogramContainer}>
-        <Histogram 
-          rollCounts={rollCounts.slice(0, isHardMode ? HARD_MODE_FACE_COUNT : EASY_MODE_FACE_COUNT)}
+        <Histogram
+          rollCounts={rollCounts.slice(
+            0,
+            isHardMode ? HARD_MODE_FACE_COUNT : EASY_MODE_FACE_COUNT
+          )}
         />
       </div>
     </div>

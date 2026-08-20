@@ -18,27 +18,18 @@
 .silverDie {
   border: 0.4rem solid #aaa;
   color: #333;
-  background: linear-gradient(
-    135deg, 
-    #ccc, 
-    #ddd, 
-    #fff, 
-    #eee, 
-    #ccc, 
-    #bbb,
-    #bbb
-  );
+  background: linear-gradient(135deg, #ccc, #ddd, #fff, #eee, #ccc, #bbb, #bbb);
 }
 
 .goldDie {
   border: 0.4rem solid #e1d176;
   color: #a7921c;
   background: linear-gradient(
-    135deg,  
-    #dac549, 
-    #dfd181, 
-    #f2e6a2, 
-    #decc62, 
+    135deg,
+    #dac549,
+    #dfd181,
+    #f2e6a2,
+    #decc62,
     #dec745,
     #d5bf43,
     #cdb52b
@@ -62,8 +53,12 @@
 }
 
 @keyframes roll {
-  0% { transform: rotate(0deg) }
-  100% { transform: rotate(360deg) }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .shakeHorizontal {
@@ -74,11 +69,21 @@
 }
 
 @keyframes shake-h {
-  0% { transform: translateX(0) }
-  25% { transform: translateX(15px) }
-  50% { transform: translateX(0px) }
-  75% { transform: translateX(-15px) }
-  100% { transform: translateX(0px) }
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(15px);
+  }
+  50% {
+    transform: translateX(0px);
+  }
+  75% {
+    transform: translateX(-15px);
+  }
+  100% {
+    transform: translateX(0px);
+  }
 }
 
 .shakeVertical {
@@ -89,9 +94,19 @@
 }
 
 @keyframes shake-v {
-  0% { transform: translateY(0) }
-  25% { transform: translateY(15px) }
-  50% { transform: translateY(0px) }
-  75% { transform: translateY(-15px) }
-  100% { transform: translateY(0px) }
+  0% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(15px);
+  }
+  50% {
+    transform: translateY(0px);
+  }
+  75% {
+    transform: translateY(-15px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
 }

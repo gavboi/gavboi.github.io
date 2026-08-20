@@ -1,31 +1,44 @@
-import { createContext, CSSProperties, useCallback, useContext, useEffect, useState, type ReactNode } from 'react';
-import { DEFAULT_LUCKY_DICE_THEME, LUCKY_DICE_THEMES } from '../constants';
-import { Theme, ThemeName } from '../types';
-import { LUCKY_DICE_THEME_SAVE_KEY } from '../components/store/saveObj';
+import {
+  createContext,
+  CSSProperties,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+  type ReactNode,
+} from "react";
+import { DEFAULT_LUCKY_DICE_THEME, LUCKY_DICE_THEMES } from "../constants";
+import { Theme, ThemeName } from "../types";
+import { LUCKY_DICE_THEME_SAVE_KEY } from "../components/store/saveObj";
 
-
-type LuckyDiceThemeContext = {
+type LuckyDiceThemeContextType = {
   themeName: ThemeName;
   setThemeName: (themeName: ThemeName) => void;
   themeStyle: CSSProperties;
 };
 
-const LuckyDiceThemeContext = createContext<LuckyDiceThemeContext | undefined>(undefined);
+const LuckyDiceThemeContext = createContext<
+  LuckyDiceThemeContextType | undefined
+>(undefined);
 
 type Props = {
   children: ReactNode;
 };
 
 export function LuckyDiceThemeProvider({ children }: Props) {
-  const [themeName, setThemeName] = useState<ThemeName>(DEFAULT_LUCKY_DICE_THEME);
-  const [themeStyle, setThemeStyle] = useState<CSSProperties>({} as CSSProperties);
+  const [themeName, setThemeName] = useState<ThemeName>(
+    DEFAULT_LUCKY_DICE_THEME
+  );
+  const [themeStyle, setThemeStyle] = useState<CSSProperties>(
+    {} as CSSProperties
+  );
   const [loadTime, setLoadTime] = useState<number>(Date.now());
   const theme: Theme = LUCKY_DICE_THEMES[themeName];
 
-  const saveThemeState = () => {
+  const saveThemeState = useCallback(() => {
     localStorage.setItem(LUCKY_DICE_THEME_SAVE_KEY, JSON.stringify(themeName));
     console.debug("Theme state saved to localStorage");
-  };
+  }, [themeName]);
 
   const loadThemeState = () => {
     const raw = localStorage.getItem(LUCKY_DICE_THEME_SAVE_KEY);
@@ -43,8 +56,10 @@ export function LuckyDiceThemeProvider({ children }: Props) {
     }
 
     setThemeName(DEFAULT_LUCKY_DICE_THEME);
-    console.debug("No valid theme state found in localStorage, using default theme");
-  }
+    console.debug(
+      "No valid theme state found in localStorage, using default theme"
+    );
+  };
 
   useEffect(() => {
     loadThemeState();
@@ -56,18 +71,18 @@ export function LuckyDiceThemeProvider({ children }: Props) {
       saveThemeState();
     }
     setThemeStyle({
-      '--background': theme.background,
-      '--onBackground': theme.onBackground,
-      '--surface': theme.surface,
-      '--onSurface': theme.onSurface,
-      '--primary': theme.primary,
-      '--onPrimary': theme.onPrimary,
-      '--primaryContainer': theme.primaryContainer,
-      '--onPrimaryContainer': theme.onPrimaryContainer,
-      '--secondary': theme.secondary,
-      '--onSecondary': theme.onSecondary,
+      "--background": theme.background,
+      "--onBackground": theme.onBackground,
+      "--surface": theme.surface,
+      "--onSurface": theme.onSurface,
+      "--primary": theme.primary,
+      "--onPrimary": theme.onPrimary,
+      "--primaryContainer": theme.primaryContainer,
+      "--onPrimaryContainer": theme.onPrimaryContainer,
+      "--secondary": theme.secondary,
+      "--onSecondary": theme.onSecondary,
     } as CSSProperties);
-  }, [themeName]);
+  }, [themeName, loadTime, saveThemeState, theme]);
 
   return (
     <LuckyDiceThemeContext.Provider
@@ -86,7 +101,9 @@ export function useLuckyDiceTheme() {
   const context = useContext(LuckyDiceThemeContext);
 
   if (!context) {
-    throw new Error('useLuckyDiceTheme must be used within a LuckyDiceThemeProvider');
+    throw new Error(
+      "useLuckyDiceTheme must be used within a LuckyDiceThemeProvider"
+    );
   }
 
   return context;

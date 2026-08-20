@@ -1,13 +1,11 @@
-import { useLuckyDiceTheme } from '../../theme';
-import classes from './index.module.css';
+import { useLuckyDiceTheme } from "../../theme";
+import classes from "./index.module.css";
 
 interface HistogramProps {
   rollCounts: number[];
 }
 
-export default function Histogram(
-  { rollCounts }: HistogramProps
-) {
+export default function Histogram({ rollCounts }: HistogramProps) {
   const { themeStyle } = useLuckyDiceTheme();
   const maxCount = Math.max(...rollCounts);
 
@@ -18,11 +16,13 @@ export default function Histogram(
           <div
             key={index}
             className={classes.bar}
-            style={{ 
-              height: `${(count / maxCount) * 100}%`, 
-              gridTemplateColumns: `repeat(${rollCounts.length}, 1fr)`,
-              gridColumn: index + 1
-            } as React.CSSProperties}
+            style={
+              {
+                height: `${(count / maxCount) * 100}%`,
+                gridTemplateColumns: `repeat(${rollCounts.length}, 1fr)`,
+                gridColumn: index + 1,
+              } as React.CSSProperties
+            }
           >
             <p className={classes.barLabel}>{count}</p>
           </div>
@@ -30,5 +30,5 @@ export default function Histogram(
         </>
       ))}
     </div>
-  )
+  );
 }

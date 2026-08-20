@@ -5,7 +5,7 @@
     "noFallthroughCasesInSwitch": true,
     "jsx": "react-jsx",
     "esModuleInterop": true,
-    "noEmit": true,
+    "noEmit": true
   },
   "include": ["src", "node_modules/react-scripts"]
 }

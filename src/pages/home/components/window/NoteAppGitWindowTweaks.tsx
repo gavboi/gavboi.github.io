@@ -1,6 +1,6 @@
-import Window from '.';
-import { NoteAppInfo } from '../item';
-import classes from './index.module.css';
+import Window from ".";
+import { NoteAppInfo } from "../item";
+import classes from "./index.module.css";
 
 function Content() {
   return (
@@ -14,9 +14,9 @@ function Content() {
       />
       <p>
         Script to give more control than normal over windows on your computer,
-        such as making them translucent or always on top.
-        You can run the .ahk file, or use the compiled .exe file if you prefer it or do not
-        have AutoHotKey installed. 
+        such as making them translucent or always on top. You can run the .ahk
+        file, or use the compiled .exe file if you prefer it or do not have
+        AutoHotKey installed.
       </p>
       <h2>Usage</h2>
       <p>
@@ -27,10 +27,5 @@ function Content() {
 }
 
 export default function NoteAppGitWindowTweaks() {
-  return (
-    <Window
-      title="Window Tweaks"
-      content={<Content />}
-    />
-  )
+  return <Window title="Window Tweaks" content={<Content />} />;
 }
