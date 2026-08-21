@@ -30,7 +30,11 @@
   border-radius: 1rem;
   padding: 1rem 1.25rem;
   min-width: 10rem;
-  background: linear-gradient(135deg, var(--theme-primary), var(--theme-secondary));
+  background: linear-gradient(
+    135deg,
+    var(--theme-primary),
+    var(--theme-secondary)
+  );
   color: var(--theme-on-primary);
   display: flex;
   flex-direction: column;
@@ -69,5 +73,5 @@
 .wipeButton {
   border: 2px solid white;
   background-color: red;
-  color: white; 
+  color: white;
 }

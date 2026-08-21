@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, useState, ReactNode } from "react";
 
 type WindowNavContextType = {
   pushWindow: (window: ReactNode) => void;
@@ -13,7 +13,7 @@ export function WindowNavProvider({ children }: { children: ReactNode }) {
 
   /**
    * Open a window by adding it to the top of the window stack.
-   * 
+   *
    * @param window Window to open
    */
   const pushWindow = (window: React.ReactNode) => {
@@ -34,7 +34,8 @@ export function WindowNavProvider({ children }: { children: ReactNode }) {
       value={{
         pushWindow,
         popWindow,
-        currentWindow: windowStack.length > 0 ? windowStack[windowStack.length - 1] : null
+        currentWindow:
+          windowStack.length > 0 ? windowStack[windowStack.length - 1] : null,
       }}
     >
       {children}
@@ -46,7 +47,7 @@ export function useWindowNav() {
   const context = useContext(WindowNavContext);
 
   if (!context) {
-    throw new Error('useWindowNav must be used within a WindowNavProvider');
+    throw new Error("useWindowNav must be used within a WindowNavProvider");
   }
 
   return context;

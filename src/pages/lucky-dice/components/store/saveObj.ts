@@ -1,12 +1,12 @@
 import { AchievementsUnlockedType, UpgradesCountType } from "../../types";
 
-export const LUCKY_DICE_SAVE_KEY = 'lucky-dice-save';
-export const LUCKY_DICE_THEME_SAVE_KEY = 'lucky-dice-theme';
+export const LUCKY_DICE_SAVE_KEY = "lucky-dice-save";
+export const LUCKY_DICE_THEME_SAVE_KEY = "lucky-dice-theme";
 export const MAX_SAVE_FREQUENCY = 1000 * 2; // 2 seconds
 
 type SaveObj = {
   version: number;
-}
+};
 
 export type SaveObjV1 = SaveObj & {
   // Version
@@ -24,4 +24,4 @@ export type SaveObjV1 = SaveObj & {
   // Progress
   achievements: AchievementsUnlockedType;
   upgrades: UpgradesCountType;
-}
+};

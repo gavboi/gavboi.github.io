@@ -1,6 +1,6 @@
-import Window from '.';
-import { NoteAppInfo } from '../item';
-import classes from './index.module.css';
+import Window from ".";
+import { NoteAppInfo } from "../item";
+import classes from "./index.module.css";
 
 function Content() {
   return (
@@ -13,22 +13,15 @@ function Content() {
         repoUrl="https://github.com/gavboi/gavboi.github.io"
       />
       <p>
-        My personal website, built to be both a navigable portfolio for those unfamiliar
-        with GitHub, and as a place to host some of my projects that can be interacted with
-        via a browser.
+        My personal website, built to be both a navigable portfolio for those
+        unfamiliar with GitHub, and as a place to host some of my projects that
+        can be interacted with via a browser.
       </p>
-      <p>
-        Hosted with GitHub pages.
-      </p>
+      <p>Hosted with GitHub pages.</p>
     </div>
   );
 }
 
 export default function NoteAppGitWebsite() {
-  return (
-    <Window
-      title="This Website"
-      content={<Content />}
-    />
-  )
+  return <Window title="This Website" content={<Content />} />;
 }

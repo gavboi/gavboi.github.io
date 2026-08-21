@@ -1,4 +1,11 @@
-import { Achievement, AchievementName, Theme, ThemeName, Upgrade, UpgradeName } from "./types";
+import {
+  Achievement,
+  AchievementName,
+  Theme,
+  ThemeName,
+  Upgrade,
+  UpgradeName,
+} from "./types";
 
 // Configuration
 export const MAX_NOTICES = 15;
@@ -10,199 +17,203 @@ export const DEFAULT_ROLL_TIME_MS = 3000;
 export const ROLL_TIME_REDUCTION_PER_UPGRADE_MS = 500;
 
 export const UPGRADES: Record<UpgradeName, Upgrade> = {
-  'more-dice': {
-    name: 'More Dice',
-    description: 'Get one more die',
+  "more-dice": {
+    name: "More Dice",
+    description: "Get one more die",
     costs: [98, 9800, 73_000, 310_000],
-    countDisplayConversion: (count) => `${count + 1} ${count === 0 ? 'die' : 'dice'}`,
-    unlockAchievement: '10-rolls',
+    countDisplayConversion: (count) =>
+      `${count + 1} ${count === 0 ? "die" : "dice"}`,
+    unlockAchievement: "10-rolls",
   },
-  'faster-rolling': {
-    name: 'Faster Rolling',
+  "faster-rolling": {
+    name: "Faster Rolling",
     description: `Roll dice ${ROLL_TIME_REDUCTION_PER_UPGRADE_MS / 1000}s faster`,
     costs: [5, 9, 37, 9800, 380_000],
-    countDisplayConversion: (count) => `${(DEFAULT_ROLL_TIME_MS - count * ROLL_TIME_REDUCTION_PER_UPGRADE_MS) / 1000}s / roll`,
-    unlockAchievement: 'roll-on-roll',
+    countDisplayConversion: (count) =>
+      `${(DEFAULT_ROLL_TIME_MS - count * ROLL_TIME_REDUCTION_PER_UPGRADE_MS) / 1000}s / roll`,
+    unlockAchievement: "roll-on-roll",
   },
-  'less-numbers': {
-    name: 'Smaller Dice',
-    description: 'All dice have 1 fewer side',
+  "less-numbers": {
+    name: "Smaller Dice",
+    description: "All dice have 1 fewer side",
     costs: [4, 7, 13, 360, 1_900_000],
     countDisplayConversion: (count) => `${6 - count} sides`,
-    unlockAchievement: '10-fail-consecutive',
+    unlockAchievement: "10-fail-consecutive",
   },
-  'higher-payout': {
-    name: 'Higher Payout',
-    description: '+1 point for a lucky roll',
+  "higher-payout": {
+    name: "Higher Payout",
+    description: "+1 point for a lucky roll",
     costs: [49, 6500, 37_000, 240_000],
-    countDisplayConversion: (count) => `${count + 1} point${count !== 0 ? 's' : ''}`,
-    unlockAchievement: '10-lucky',
+    countDisplayConversion: (count) =>
+      `${count + 1} point${count !== 0 ? "s" : ""}`,
+    unlockAchievement: "10-lucky",
   },
-  'streak-multiplier': {
-    name: 'Streak Multiplier',
-    description: 'Multiplied points for sequential lucky rolls',
+  "streak-multiplier": {
+    name: "Streak Multiplier",
+    description: "Multiplied points for sequential lucky rolls",
     costs: [3, 5, 6, 11],
     countDisplayConversion: (count) => `${count + 1}x multiplier`,
-    unlockAchievement: '2-lucky-consecutive',
+    unlockAchievement: "2-lucky-consecutive",
   },
-  'your-lucky-number': {
-    name: 'Pick Lucky Number',
-    description: 'Allow cycling to other lucky numbers by clicking current one',
+  "your-lucky-number": {
+    name: "Pick Lucky Number",
+    description: "Allow cycling to other lucky numbers by clicking current one",
     costs: [5],
-    countDisplayConversion: (count) => `${count === 0 ? 'Buyable' : 'Bought'}`,
-    unlockAchievement: 'each-once',
+    countDisplayConversion: (count) => `${count === 0 ? "Buyable" : "Bought"}`,
+    unlockAchievement: "each-once",
   },
-  'stats': {
-    name: 'Stats Page',
-    description: 'Unlock stats page',
+  stats: {
+    name: "Stats Page",
+    description: "Unlock stats page",
     costs: [5],
-    countDisplayConversion: (count) => `${count === 0 ? 'Buyable' : 'Bought'}`,
-    unlockAchievement: 'view-info',
+    countDisplayConversion: (count) => `${count === 0 ? "Buyable" : "Bought"}`,
+    unlockAchievement: "view-info",
   },
-  'hard-mode': {
-    name: 'Hard Mode',
-    description: 'Unlock hard mode',
+  "hard-mode": {
+    name: "Hard Mode",
+    description: "Unlock hard mode",
     costs: [5_000_000],
-    countDisplayConversion: (count) => `${count === 0 ? 'Buyable' : 'Bought'}`,
-    unlockAchievement: 'rich',
+    countDisplayConversion: (count) => `${count === 0 ? "Buyable" : "Bought"}`,
+    unlockAchievement: "rich",
   },
-  'winner': {
-    name: 'Winner',
+  winner: {
+    name: "Winner",
     description: "It's finally over...",
     costs: [100_000_000_000_000],
-    countDisplayConversion: (count) => `${count === 0 ? 'Buyable' : 'Bought'}`,
-    unlockAchievement: 'have-hard-mode',
-  }
-};
-  
-export const ACHIEVEMENTS: Record<AchievementName, Achievement> = {
-  '10-rolls': {
-    name: 'Curiosity',
-    description: 'Roll dice 10 times'
+    countDisplayConversion: (count) => `${count === 0 ? "Buyable" : "Bought"}`,
+    unlockAchievement: "have-hard-mode",
   },
-  'roll-on-roll': {
-    name: 'Impatient',
-    description: 'Try to roll a die that is already rolling'
-  },
-  '10-fail-consecutive': {
-    name: 'Unlucky',
-    description: 'Roll a failure 10 times in a row'
-  },
-  '10-lucky': {
-    name: 'Locked In',
-    description: 'Roll lucky number 10 times'
-  },
-  '2-lucky-consecutive': {
-    name: 'Better Than Lightning',
-    description: 'Roll lucky number twice in a row'
-  },
-  'each-once': {
-    name: 'Space Explorer',
-    description: 'Roll each number once'
-  },
-  '100-rolls': {
-    name: 'Interest',
-    description: 'Roll dice 100 times'
-  },
-  'rich': {
-    name: 'Rich',
-    description: 'Save up 100 points'
-  },
-  'have-hard-mode': {
-    name: 'Good luck, you need it',
-    description: 'Unlock hard mode'
-  },
-  'only-lucky': {
-    name: 'D1',
-    description: 'Only the lucky number is available to roll'
-  },
-  'no-lucky': {
-    name: 'Rigged',
-    description: 'Make the lucky number unavailable to roll'
-  },
-  'wait-2-mins': {
-    name: 'This isn\'t an idle game',
-    description: 'Do nothing for two minutes'
-  },
-  'upgrades-once': {
-    name: 'Savvy Shopper',
-    description: 'Buy all upgrades at least once (not including one-time unlockables)'
-  },
-  '500-roll': {
-    name: 'Addiction',
-    description: 'Roll dice 500 times'
-  },
-  '3-rolling': {
-    name: 'Dizzy',
-    description: 'Have 3 dice rolling at the same time'
-  },
-  'view-info': {
-    name: 'Quizzical',
-    description: 'View the info tab'
-  },
-  'click-background': {
-    name: "Spray n' Pray",
-    description: 'Click beside a die instead of on it'
-  },
-  'use-pips': {
-    name: 'Classic',
-    description: 'Change to pips'
-  },
-  '3-sequence': {
-    name: 'On a Roll',
-    description: 'Roll 3 sequential numbers in order'
-  },
-  'have-winner': {
-    name: 'Dice Master',
-    description: 'Buy the "winner" upgrade'
-  },
-  'clickable': {
-    name: 'Knock knock',
-    description: 'Click this achievement twice'
-  },
-  '666': {
-    name: 'Number of the Beast',
-    description: 'Roll three 6s in a row'
-  },
-  '420': {
-    name: 'Blaze It',
-    description: 'Roll a 4 and then a 20'
-  },
-  'lucky-20': {
-    name: 'Critical Success',
-    description: 'Roll a lucky number 20'
-  },
-  'very-rich': {
-    name: 'Now what?',
-    description: 'Save up 1 quadrillion points'
-  }
 };
 
-export const DEFAULT_LUCKY_DICE_THEME: ThemeName = 'blue';
+export const ACHIEVEMENTS: Record<AchievementName, Achievement> = {
+  "10-rolls": {
+    name: "Curiosity",
+    description: "Roll dice 10 times",
+  },
+  "roll-on-roll": {
+    name: "Impatient",
+    description: "Try to roll a die that is already rolling",
+  },
+  "10-fail-consecutive": {
+    name: "Unlucky",
+    description: "Roll a failure 10 times in a row",
+  },
+  "10-lucky": {
+    name: "Locked In",
+    description: "Roll lucky number 10 times",
+  },
+  "2-lucky-consecutive": {
+    name: "Better Than Lightning",
+    description: "Roll lucky number twice in a row",
+  },
+  "each-once": {
+    name: "Space Explorer",
+    description: "Roll each number once",
+  },
+  "100-rolls": {
+    name: "Interest",
+    description: "Roll dice 100 times",
+  },
+  rich: {
+    name: "Rich",
+    description: "Save up 100 points",
+  },
+  "have-hard-mode": {
+    name: "Good luck, you need it",
+    description: "Unlock hard mode",
+  },
+  "only-lucky": {
+    name: "D1",
+    description: "Only the lucky number is available to roll",
+  },
+  "no-lucky": {
+    name: "Rigged",
+    description: "Make the lucky number unavailable to roll",
+  },
+  "wait-2-mins": {
+    name: "This isn't an idle game",
+    description: "Do nothing for two minutes",
+  },
+  "upgrades-once": {
+    name: "Savvy Shopper",
+    description:
+      "Buy all upgrades at least once (not including one-time unlockables)",
+  },
+  "500-roll": {
+    name: "Addiction",
+    description: "Roll dice 500 times",
+  },
+  "3-rolling": {
+    name: "Dizzy",
+    description: "Have 3 dice rolling at the same time",
+  },
+  "view-info": {
+    name: "Quizzical",
+    description: "View the info tab",
+  },
+  "click-background": {
+    name: "Spray n' Pray",
+    description: "Click beside a die instead of on it",
+  },
+  "use-pips": {
+    name: "Classic",
+    description: "Change to pips",
+  },
+  "3-sequence": {
+    name: "On a Roll",
+    description: "Roll 3 sequential numbers in order",
+  },
+  "have-winner": {
+    name: "Dice Master",
+    description: 'Buy the "winner" upgrade',
+  },
+  clickable: {
+    name: "Knock knock",
+    description: "Click this achievement twice",
+  },
+  "666": {
+    name: "Number of the Beast",
+    description: "Roll three 6s in a row",
+  },
+  "420": {
+    name: "Blaze It",
+    description: "Roll a 4 and then a 20",
+  },
+  "lucky-20": {
+    name: "Critical Success",
+    description: "Roll a lucky number 20",
+  },
+  "very-rich": {
+    name: "Now what?",
+    description: "Save up 1 quadrillion points",
+  },
+};
+
+export const DEFAULT_LUCKY_DICE_THEME: ThemeName = "blue";
 
 export const LUCKY_DICE_THEMES: Record<ThemeName, Theme> = {
   blue: {
-    background: '#fff',
-    onBackground: '#000',
-    surface: '#add7f6',
-    onSurface: '#000',
-    primary: '#3b28cc',
-    onPrimary: '#fff',
-    primaryContainer: '#112266',
-    onPrimaryContainer: '#fff',
-    secondary: '#3f8efc',
-    onSecondary: '#fff',
+    background: "#fff",
+    onBackground: "#000",
+    surface: "#add7f6",
+    onSurface: "#000",
+    primary: "#3b28cc",
+    onPrimary: "#fff",
+    primaryContainer: "#112266",
+    onPrimaryContainer: "#fff",
+    secondary: "#3f8efc",
+    onSecondary: "#fff",
   },
   dark: {
-    background: '#2f2f2f',
-    onBackground: '#fff',
-    surface: '#1f1f1f',
-    onSurface: '#fff',
-    primary: '#080808',
-    onPrimary: '#fff',
-    primaryContainer: '#181818',
-    onPrimaryContainer: '#fff',
-    secondary: '#0f0f0f',
-    onSecondary: '#fff',
-  }
+    background: "#2f2f2f",
+    onBackground: "#fff",
+    surface: "#1f1f1f",
+    onSurface: "#fff",
+    primary: "#080808",
+    onPrimary: "#fff",
+    primaryContainer: "#181818",
+    onPrimaryContainer: "#fff",
+    secondary: "#0f0f0f",
+    onSecondary: "#fff",
+  },
 };

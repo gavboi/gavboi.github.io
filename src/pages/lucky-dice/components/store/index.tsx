@@ -1,60 +1,62 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { AchievementsUnlockedType, UpgradesCountType } from "../../types";
 import { SaveObjV1, LUCKY_DICE_SAVE_KEY, MAX_SAVE_FREQUENCY } from "./saveObj";
 
 export default function useLuckyDiceStore() {
-
   // Core
   const [points, setPoints] = useState<number>(0);
   const [isHardMode, setIsHardMode] = useState<boolean>(false);
   const [usesPips, setUsesPips] = useState<boolean>(false);
 
   // Bonus Stats
-  const [rollCounts, setRollCounts] = useState<number[]>(Array<number>(20).fill(0));
+  const [rollCounts, setRollCounts] = useState<number[]>(
+    Array<number>(20).fill(0)
+  );
   const [luckyRollCount, setLuckyRollCount] = useState<number>(0);
   const [currentStreak, setCurrentStreak] = useState<number>(0);
   const [maxStreak, setMaxStreak] = useState<number>(0);
   const [minStreak, setMinStreak] = useState<number>(0);
 
   // Progress
-  const [achievementsUnlocked, setAchievementsUnlocked] = useState<AchievementsUnlockedType>({
-    '10-rolls': false, // checked on roll
-    'roll-on-roll': false, // unique; click handler
-    '10-fail-consecutive': false, // checked on roll
-    '10-lucky': false, // checked on roll
-    '2-lucky-consecutive': false, // checked on roll
-    'each-once': false, // checked on roll
-    '100-rolls': false, // checked on roll
-    'rich': false, // checked on roll
-    'have-hard-mode': false, // checked on buy
-    'only-lucky': false, // checked on buy, update lucky
-    'no-lucky': false, // checked on buy, update lucky
-    'wait-2-mins': false, // unique; timeout
-    'upgrades-once': false, // checked on buy
-    '500-roll': false, // checked on roll
-    '3-rolling': false, // ?
-    'view-info': false, // checked on handler
-    'click-background': false, // unique; click handler
-    'use-pips': false, // unique; click handler
-    '3-sequence': false, // checked on roll
-    'have-winner': false, // checked on buy
-    'clickable': false, // unique; click handler
-    '666': false, // checked on roll
-    '420': false, // checked on roll
-    'lucky-20': false, // checked on roll
-    'very-rich': false // checked on roll
-  });
+  const [achievementsUnlocked, setAchievementsUnlocked] =
+    useState<AchievementsUnlockedType>({
+      "10-rolls": false, // checked on roll
+      "roll-on-roll": false, // unique; click handler
+      "10-fail-consecutive": false, // checked on roll
+      "10-lucky": false, // checked on roll
+      "2-lucky-consecutive": false, // checked on roll
+      "each-once": false, // checked on roll
+      "100-rolls": false, // checked on roll
+      rich: false, // checked on roll
+      "have-hard-mode": false, // checked on buy
+      "only-lucky": false, // checked on buy, update lucky
+      "no-lucky": false, // checked on buy, update lucky
+      "wait-2-mins": false, // unique; timeout
+      "upgrades-once": false, // checked on buy
+      "500-roll": false, // checked on roll
+      "3-rolling": false, // ?
+      "view-info": false, // checked on handler
+      "click-background": false, // unique; click handler
+      "use-pips": false, // unique; click handler
+      "3-sequence": false, // checked on roll
+      "have-winner": false, // checked on buy
+      clickable: false, // unique; click handler
+      "666": false, // checked on roll
+      "420": false, // checked on roll
+      "lucky-20": false, // checked on roll
+      "very-rich": false, // checked on roll
+    });
 
   const [upgradeCount, setUpgradeCount] = useState<UpgradesCountType>({
-    'more-dice': 0,
-    'faster-rolling': 0,
-    'less-numbers': 0,
-    'higher-payout': 0,
-    'streak-multiplier': 0,
-    'your-lucky-number': 0,
-    'stats': 0,
-    'hard-mode': 0,
-    'winner': 0
+    "more-dice": 0,
+    "faster-rolling": 0,
+    "less-numbers": 0,
+    "higher-payout": 0,
+    "streak-multiplier": 0,
+    "your-lucky-number": 0,
+    stats: 0,
+    "hard-mode": 0,
+    winner: 0,
   });
 
   // State
@@ -63,7 +65,7 @@ export default function useLuckyDiceStore() {
   /**
    * Save the current state to localStorage.
    */
-  const saveState = () => {
+  const saveState = useCallback(() => {
     const saveObj: SaveObjV1 = {
       version: 1,
       points,
@@ -75,16 +77,28 @@ export default function useLuckyDiceStore() {
       minStreak,
       achievements: achievementsUnlocked,
       upgrades: upgradeCount,
-      usesPips
+      usesPips,
     };
 
     localStorage.setItem(LUCKY_DICE_SAVE_KEY, JSON.stringify(saveObj));
     setLastSave(Date.now());
     console.debug("Game progress saved to localStorage");
-  }
+  }, [
+    achievementsUnlocked,
+    currentStreak,
+    isHardMode,
+    luckyRollCount,
+    maxStreak,
+    minStreak,
+    points,
+    rollCounts,
+    upgradeCount,
+    usesPips,
+    setLastSave,
+  ]);
 
   /**
-   * Load the state from localStorage, if it exists, 
+   * Load the state from localStorage, if it exists,
    * and update the store accordingly. In case of any error,
    * will fail silently and result in no updates.
    */
@@ -111,7 +125,7 @@ export default function useLuckyDiceStore() {
     } catch {
       // ignore
     }
-  }
+  };
 
   /**
    * Reset the state to its initial values and clears localStorage.
@@ -129,20 +143,21 @@ export default function useLuckyDiceStore() {
     // Progress
     if (all) {
       setAchievementsUnlocked(
-        Object.fromEntries(Object.keys(achievementsUnlocked).map(
-          key => [key, false])
-        ) as AchievementsUnlockedType);
+        Object.fromEntries(
+          Object.keys(achievementsUnlocked).map((key) => [key, false])
+        ) as AchievementsUnlockedType
+      );
     }
     setUpgradeCount((prevUpgradeCount) => {
-      const newUpgradeCount = Object.fromEntries(Object.keys(prevUpgradeCount).map(
-        key => [key, 0])
+      const newUpgradeCount = Object.fromEntries(
+        Object.keys(prevUpgradeCount).map((key) => [key, 0])
       ) as UpgradesCountType;
       if (!all) {
-        if (prevUpgradeCount['hard-mode'] > 0) {
-          newUpgradeCount['hard-mode'] = 1;
+        if (prevUpgradeCount["hard-mode"] > 0) {
+          newUpgradeCount["hard-mode"] = 1;
         }
-        if (prevUpgradeCount['stats'] > 0) {
-          newUpgradeCount['stats'] = 1;
+        if (prevUpgradeCount["stats"] > 0) {
+          newUpgradeCount["stats"] = 1;
         }
       }
       return newUpgradeCount;
@@ -151,43 +166,57 @@ export default function useLuckyDiceStore() {
     setLastSave(Date.now());
     localStorage.removeItem(LUCKY_DICE_SAVE_KEY);
     console.debug(
-      `Game progress reset, achievements ${all ? 'reset' : 'preserved'}, ` +
-      `${hardMode ? 'started' : 'did not start'} hard mode`);
+      `Game progress reset, achievements ${all ? "reset" : "preserved"}, ` +
+        `${hardMode ? "started" : "did not start"} hard mode`
+    );
   };
 
   const wipeSave = () => {
     resetStateHelper(true, false);
-  }
+  };
 
   const restartGame = () => {
     resetStateHelper(false, false);
-  }
+  };
 
   const restartGameHardMode = () => {
     resetStateHelper(false, true);
-  }
+  };
 
   useEffect(() => {
-    loadState()
+    loadState();
   }, []);
 
   useEffect(() => {
     if (Date.now() < lastSave + MAX_SAVE_FREQUENCY) return;
-    saveState()
-  }, [rollCounts, achievementsUnlocked, upgradeCount]);
+    saveState();
+  }, [rollCounts, achievementsUnlocked, upgradeCount, lastSave, saveState]);
 
   return {
-    points, setPoints,
-    isHardMode, setIsHardMode,
-    rollCounts, setRollCounts,
-    luckyRollCount, setLuckyRollCount,
-    currentStreak, setCurrentStreak,
-    maxStreak, setMaxStreak,
-    minStreak, setMinStreak,
-    achievementsUnlocked, setAchievementsUnlocked,
-    upgradeCount, setUpgradeCount,
-    lastSave, saveState,
-    wipeSave, restartGame, restartGameHardMode,
-    usesPips, setUsesPips
-  }
+    points,
+    setPoints,
+    isHardMode,
+    setIsHardMode,
+    rollCounts,
+    setRollCounts,
+    luckyRollCount,
+    setLuckyRollCount,
+    currentStreak,
+    setCurrentStreak,
+    maxStreak,
+    setMaxStreak,
+    minStreak,
+    setMinStreak,
+    achievementsUnlocked,
+    setAchievementsUnlocked,
+    upgradeCount,
+    setUpgradeCount,
+    lastSave,
+    saveState,
+    wipeSave,
+    restartGame,
+    restartGameHardMode,
+    usesPips,
+    setUsesPips,
+  };
 }

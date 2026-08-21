@@ -1,6 +1,6 @@
-import Window from '.';
-import { NoteAppInfo } from '../item';
-import classes from './index.module.css';
+import Window from ".";
+import { NoteAppInfo } from "../item";
+import classes from "./index.module.css";
 
 function Content() {
   return (
@@ -13,12 +13,15 @@ function Content() {
         repoUrl="https://github.com/gavboi/connections-together"
       />
       <p>
-        LAN multiplayer versus word association guessing game based off "Connections",
-        with inspiration from Jackbox games.
+        LAN multiplayer versus word association guessing game based off
+        "Connections", with inspiration from Jackbox games.
       </p>
-      <p><b>
-        Currently privated as instability in websocket setup makes games nearly unplayable.
-      </b></p>
+      <p>
+        <b>
+          Currently privated as instability in websocket setup makes games
+          nearly unplayable.
+        </b>
+      </p>
       {/*<h2>Usage</h2>
       <p>
         INSTR
@@ -32,10 +35,5 @@ function Content() {
 }
 
 export default function NoteAppGitConnectionsTogether() {
-  return (
-    <Window
-      title="Connections Together"
-      content={<Content />}
-    />
-  )
+  return <Window title="Connections Together" content={<Content />} />;
 }

@@ -1,19 +1,9 @@
 import FileApp from "./FileApp";
-import { faScissors, faPersonRunning } from '@fortawesome/free-solid-svg-icons';
+import { faScissors, faPersonRunning } from "@fortawesome/free-solid-svg-icons";
 import Item from "../item";
 import { useWindowNav } from "../../WindowNavProvider";
-import Window from "."
 import NoteAppIdeasRpsCamera from "./NoteAppIdeasRpsCamera";
 import NoteAppIdeasMlTag from "./NoteAppIdeasMlTag";
-
-/**
- * TEMP
- */
-function BlankWindow() {
-  return (
-    <Window title="?" content={null}/>
-  )
-}
 
 export default function FileAppIdeas() {
   const { pushWindow } = useWindowNav();
@@ -36,5 +26,5 @@ export default function FileAppIdeas() {
         />,
       ]}
     />
-  )
+  );
 }

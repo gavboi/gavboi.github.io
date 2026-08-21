@@ -1,8 +1,8 @@
-import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faX } from '@fortawesome/free-solid-svg-icons';
-import classes from './index.module.css';
-import { useWindowNav } from '../../WindowNavProvider';
+import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faX } from "@fortawesome/free-solid-svg-icons";
+import classes from "./index.module.css";
+import { useWindowNav } from "../../WindowNavProvider";
 
 export interface WindowProps {
   title: string;
@@ -20,9 +20,7 @@ export default function Window({ title, content }: WindowProps) {
           <FontAwesomeIcon icon={faX} className={classes.windowXIcon} />
         </div>
       </div>
-      <div className={classes.container}>
-        {content}
-      </div>
+      <div className={classes.container}>{content}</div>
     </div>
   );
 }

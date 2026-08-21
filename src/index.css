@@ -1,8 +1,8 @@
-@import './theme/themes.css';
+@import "./theme/themes.css";
 
 @font-face {
-  font-family: 'PHSecret';
-  src: url('../public/fonts/PHSecret.otf') format('opentype');
+  font-family: "PHSecret";
+  src: url("../public/fonts/PHSecret.otf") format("opentype");
   font-display: swap;
 }
 

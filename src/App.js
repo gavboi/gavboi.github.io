@@ -1,10 +1,10 @@
-import './App.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import DefaultPage from './pages/default';
-import HomePage from './pages/home';
-import LegacyPage from './pages/legacy';
-import LuckyDicePage from './pages/lucky-dice/index.tsx';
-import TestPage from './pages/test/index.tsx';
+import "./App.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import DefaultPage from "./pages/default";
+import HomePage from "./pages/home";
+import LegacyPage from "./pages/legacy";
+import LuckyDicePage from "./pages/lucky-dice/index.tsx";
+import TestPage from "./pages/test/index.tsx";
 
 function App() {
   return (
@@ -12,8 +12,8 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/legacy" element={<LegacyPage />} />
-        <Route path='/lucky-dice' element={<LuckyDicePage />} />
-        <Route path='/test' element={<TestPage />} />
+        <Route path="/lucky-dice" element={<LuckyDicePage />} />
+        <Route path="/test" element={<TestPage />} />
         <Route path="*" element={<DefaultPage />} />
       </Routes>
     </BrowserRouter>
